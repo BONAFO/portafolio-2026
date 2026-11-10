@@ -1,9 +1,10 @@
+
 "use client";
 
 const profile = {
   name: "BRUNO GIULIANO",
   surname: "BONASIF COLLOCA",
-  role: "PROGRAMADOR FULL STACK",
+  role: ["PROGRAMADOR", "FULL STACK"],
 };
 
 const letters = {
@@ -87,331 +88,191 @@ function CircuitText({ text, y, scale = 1 }) {
   );
 }
 
-// export default function HeroBanner() {
-//   const getTextWidth = (text) =>
-//     text.split("").reduce(
-//       (width, char) => width + (char === " " ? 20 : 38),
-//       0
-//     );
-
-//   const nameScale = 1.15;
-//   const surnameScale = 0.85;
-
-//   return (
-//     <section className="relative flex min-h-[520px] w-full items-center justify-center overflow-hidden bg-[#080808] sm:min-h-[600px] lg:min-h-[650px]">
-
-//       {/* Fondo de pistas */}
-//       <svg
-//         viewBox="0 0 1400 600"
-//         preserveAspectRatio="xMidYMid meet"
-//         className="absolute inset-0 h-full w-full"
-//         xmlns="http://www.w3.org/2000/svg"
-//       >
-//         <defs>
-//           <linearGradient id="circuitGlow" x1="0" y1="0" x2="1" y2="0">
-//             <stop offset="0%" stopColor="#a66e32" stopOpacity="0.15" />
-//             <stop offset="50%" stopColor="#e5bd78" stopOpacity="0.8" />
-//             <stop offset="100%" stopColor="#a66e32" stopOpacity="0.15" />
-//           </linearGradient>
-//         </defs>
-
-//         {/* Pistas izquierdas */}
-//         <g
-//           fill="none"
-//           stroke="url(#circuitGlow)"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//         >
-//           <path d="M0 120 H100 L145 165 H230" />
-//           <path d="M0 180 H65 L110 225 H190" />
-//           <path d="M0 300 H90 L130 260 H220" />
-//           <path d="M0 390 H120 L165 345 H240" />
-//           <path d="M0 480 H75 L120 435 H210" />
-//           <path d="M0 540 H150 L190 500 H260" />
-//         </g>
-
-//         {/* Pistas derechas */}
-//         <g
-//           fill="none"
-//           stroke="url(#circuitGlow)"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//         >
-//           <path d="M1400 120 H1300 L1255 165 H1170" />
-//           <path d="M1400 180 H1335 L1290 225 H1210" />
-//           <path d="M1400 300 H1310 L1270 260 H1180" />
-//           <path d="M1400 390 H1280 L1235 345 H1160" />
-//           <path d="M1400 480 H1325 L1280 435 H1190" />
-//           <path d="M1400 540 H1250 L1210 500 H1140" />
-//         </g>
-
-//         {/* Terminales */}
-//         <g fill="#d6a45c">
-//           {[
-//             [100, 120],
-//             [65, 180],
-//             [90, 300],
-//             [120, 390],
-//             [75, 480],
-//             [150, 540],
-//             [1300, 120],
-//             [1335, 180],
-//             [1310, 300],
-//             [1280, 390],
-//             [1325, 480],
-//             [1250, 540],
-//           ].map(([x, y], i) => (
-//             <circle key={i} cx={x} cy={y} r="4" />
-//           ))}
-//         </g>
-
-//         {/* Puntos decorativos */}
-//         <g fill="#e5bd78" opacity="0.5">
-//           <circle cx="40" cy="80" r="2" />
-//           <circle cx="180" cy="100" r="2" />
-//           <circle cx="80" cy="550" r="2" />
-//           <circle cx="1360" cy="80" r="2" />
-//           <circle cx="1220" cy="100" r="2" />
-//           <circle cx="1320" cy="550" r="2" />
-//         </g>
-//       </svg>
-
-//       {/* Contenido central */}
-//       <div className="relative z-10 flex w-full flex-col items-center justify-center px-4">
-
-//         {/* Nombre y apellidos */}
-//         <svg
-//           viewBox="0 0 1100 220"
-//           className="h-auto w-full max-w-[1100px] overflow-visible"
-//           xmlns="http://www.w3.org/2000/svg"
-//         >
-//           <CircuitText
-//             text={profile.name}
-//             y={25}
-//             scale={nameScale}
-//           />
-
-//           <CircuitText
-//             text={profile.surname}
-//             y={115}
-//             scale={surnameScale}
-//           />
-//         </svg>
-
-//         {/* Profesión */}
-//         <div className="mt-5 flex items-center gap-3 sm:mt-7 sm:gap-5">
-//           <span className="h-px w-8 bg-[#a66e32] sm:w-16" />
-
-//           <p className="whitespace-nowrap text-[10px] font-medium tracking-[0.25em] text-[#e5bd78] sm:text-sm sm:tracking-[0.4em] md:text-base">
-//             {profile.role}
-//           </p>
-
-//           <span className="h-px w-8 bg-[#a66e32] sm:w-16" />
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-
-// ... (mantén todo el código de letters y CircuitText igual hasta HeroBanner)
-
-// export default function HeroBanner() {
-//   const nameScale = 1.15;
-//   const surnameScale = 0.85;
-
-//   return (
-// <section className="relative flex h-[280px] w-full items-center justify-center overflow-hidden bg-[#080808] sm:h-[420px] lg:h-[500px]">
-//       {/* Fondo de pistas (SVG) */}
-//       <svg
-//         viewBox="0 0 1400 600"
-//         preserveAspectRatio="xMidYMid meet"
-//         className="absolute inset-0 h-full w-full"
-//         xmlns="http://www.w3.org/2000/svg"
-//       >
-//         <defs>
-//           <linearGradient id="circuitGlow" x1="0" y1="0" x2="1" y2="0">
-//             <stop offset="0%" stopColor="#a66e32" stopOpacity="0.15" />
-//             <stop offset="50%" stopColor="#e5bd78" stopOpacity="0.8" />
-//             <stop offset="100%" stopColor="#a66e32" stopOpacity="0.15" />
-//           </linearGradient>
-//         </defs>
-
-//         {/* Pistas izquierdas */}
-//         <g
-//           fill="none"
-//           stroke="url(#circuitGlow)"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//         >
-//           <path d="M0 120 H100 L145 165 H230" />
-//           <path d="M0 180 H65 L110 225 H190" />
-//           <path d="M0 300 H90 L130 260 H220" />
-//           <path d="M0 390 H120 L165 345 H240" />
-//           <path d="M0 480 H75 L120 435 H210" />
-//           <path d="M0 540 H150 L190 500 H260" />
-//         </g>
-
-//         {/* Pistas derechas */}
-//         <g
-//           fill="none"
-//           stroke="url(#circuitGlow)"
-//           strokeWidth="2"
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//         >
-//           <path d="M1400 120 H1300 L1255 165 H1170" />
-//           <path d="M1400 180 H1335 L1290 225 H1210" />
-//           <path d="M1400 300 H1310 L1270 260 H1180" />
-//           <path d="M1400 390 H1280 L1235 345 H1160" />
-//           <path d="M1400 480 H1325 L1280 435 H1190" />
-//           <path d="M1400 540 H1250 L1210 500 H1140" />
-//         </g>
-
-//         {/* Terminales */}
-//         <g fill="#d6a45c">
-//           {[
-//             [100, 120],
-//             [65, 180],
-//             [90, 300],
-//             [120, 390],
-//             [75, 480],
-//             [150, 540],
-//             [1300, 120],
-//             [1335, 180],
-//             [1310, 300],
-//             [1280, 390],
-//             [1325, 480],
-//             [1250, 540],
-//           ].map(([x, y], i) => (
-//             <circle key={i} cx={x} cy={y} r="4" />
-//           ))}
-//         </g>
-
-//         {/* Puntos decorativos */}
-//         <g fill="#e5bd78" opacity="0.5">
-//           <circle cx="40" cy="80" r="2" />
-//           <circle cx="180" cy="100" r="2" />
-//           <circle cx="80" cy="550" r="2" />
-//           <circle cx="1360" cy="80" r="2" />
-//           <circle cx="1220" cy="100" r="2" />
-//           <circle cx="1320" cy="550" r="2" />
-//         </g>
-//       </svg>
-
-//       {/* Contenido central */}
-//       <div className="relative z-10 flex w-full flex-col items-center justify-center px-4">
-
-//         {/* Nombre y apellidos */}
-//         <svg
-//           viewBox="0 0 1100 220"
-//           className="h-auto w-full max-w-[1100px] overflow-visible"
-//           xmlns="http://www.w3.org/2000/svg"
-//         >
-//           <CircuitText
-//             text={profile.name}
-//             y={25}
-//             scale={nameScale}
-//           />
-
-//           <CircuitText
-//             text={profile.surname}
-//             y={115}
-//             scale={surnameScale}
-//           />
-//         </svg>
-
-//         {/* Profesión */}
-//         <div className="mt-4 flex items-center gap-3 sm:mt-6 sm:gap-5">
-//           <span className="h-px w-8 bg-[#a66e32] sm:w-16" />
-
-//           <p className="whitespace-nowrap text-[10px] font-medium tracking-[0.25em] text-[#e5bd78] sm:text-sm sm:tracking-[0.4em] md:text-base">
-//             {profile.role}
-//           </p>
-
-//           <span className="h-px w-8 bg-[#a66e32] sm:w-16" />
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-
 export default function HeroBanner() {
-  const nameScale = 1.15;
-  const surnameScale = 0.85;
-
   return (
-    <section className="relative flex h-[180px] w-full items-start justify-center overflow-hidden bg-[#080808] sm:h-[420px] lg:h-[500px] pt-2">
+    <>
+      {/* MOBILE */}
+      <section className="relative flex h-[25dvh] w-full items-center justify-center overflow-hidden bg-[#080808] px-2 sm:hidden">
 
-      {/* Fondo de pistas (SVG adaptado para no dejar espacio arriba) */}
-      <svg
-        viewBox="0 0 1400 450"
-        preserveAspectRatio="xMidYMin meet"
-        className="absolute inset-0 h-full w-full pointer-events-none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <linearGradient id="circuitGlow" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#a66e32" stopOpacity="0.15" />
-            <stop offset="50%" stopColor="#e5bd78" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#a66e32" stopOpacity="0.15" />
-          </linearGradient>
-        </defs>
-
-        {/* Pistas izquierdas */}
-        <g fill="none" stroke="url(#circuitGlow)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M0 60 H100 L145 105 H230" />
-          <path d="M0 110 H65 L110 155 H190" />
-          <path d="M0 200 H90 L130 160 H220" />
-          <path d="M0 270 H120 L165 225 H240" />
-        </g>
-
-        {/* Pistas derechas */}
-        <g fill="none" stroke="url(#circuitGlow)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M1400 60 H1300 L1255 105 H1170" />
-          <path d="M1400 110 H1335 L1290 155 H1210" />
-          <path d="M1400 200 H1310 L1270 160 H1180" />
-          <path d="M1400 270 H1280 L1235 225 H1160" />
-        </g>
-      </svg>
-
-      {/* Contenido central alineado arriba */}
-      <div className="relative z-10 flex w-full flex-col items-center justify-start px-2 pt-2">
-
-        {/* Nombre y apellidos */}
         <svg
-          viewBox="0 0 1100 180"
-          className="h-auto w-full max-w-[1100px] overflow-visible"
+          viewBox="0 0 390 210"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute inset-0 h-full w-full"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <CircuitText
-            text={profile.name}
-            y={10}
-            scale={nameScale}
-          />
+          <defs>
+            <linearGradient
+              id="circuitGlowMobile"
+              x1="0"
+              y1="0"
+              x2="1"
+              y2="0"
+            >
+              <stop offset="0%" stopColor="#a66e32" stopOpacity="0.12" />
+              <stop offset="50%" stopColor="#e5bd78" stopOpacity="0.75" />
+              <stop offset="100%" stopColor="#a66e32" stopOpacity="0.12" />
+            </linearGradient>
+          </defs>
 
-          <CircuitText
-            text={profile.surname}
-            y={95}
-            scale={surnameScale}
-          />
+          <g
+            fill="none"
+            stroke="url(#circuitGlowMobile)"
+            strokeWidth="1.3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M0 35 H35 L48 48 H78" />
+            <path d="M0 75 H20 L35 90 H65" />
+            <path d="M0 165 H35 L48 152 H78" />
+            <path d="M0 190 H55 L68 177 H95" />
+
+            <path d="M390 35 H355 L342 48 H312" />
+            <path d="M390 75 H370 L355 90 H325" />
+            <path d="M390 165 H355 L342 152 H312" />
+            <path d="M390 190 H335 L322 177 H295" />
+          </g>
+
+          <g fill="#d6a45c">
+            <circle cx="35" cy="35" r="2.5" />
+            <circle cx="20" cy="75" r="2.5" />
+            <circle cx="35" cy="165" r="2.5" />
+            <circle cx="55" cy="190" r="2.5" />
+
+            <circle cx="355" cy="35" r="2.5" />
+            <circle cx="370" cy="75" r="2.5" />
+            <circle cx="355" cy="165" r="2.5" />
+            <circle cx="335" cy="190" r="2.5" />
+          </g>
+
+          <g fill="#e5bd78" opacity="0.45">
+            <circle cx="12" cy="15" r="1.5" />
+            <circle cx="90" cy="25" r="1.5" />
+            <circle cx="378" cy="15" r="1.5" />
+            <circle cx="300" cy="25" r="1.5" />
+            <circle cx="12" cy="200" r="1.5" />
+            <circle cx="378" cy="200" r="1.5" />
+          </g>
         </svg>
 
-        {/* Profesión */}
-        <div className="mt-1 flex items-center gap-3 sm:mt-4 sm:gap-5">
-          <span className="h-px w-8 bg-[#a66e32] sm:w-16" />
+        <div className="relative z-10 flex w-full flex-col items-center justify-center">
+          <svg
+            viewBox="0 0 1100 220"
+            className="h-auto w-full max-w-[390px] overflow-visible"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <CircuitText text={profile.name} y={25} scale={1.15} />
+            <CircuitText text={profile.surname} y={115} scale={0.85} />
+          </svg>
 
-          <p className="whitespace-nowrap text-[9px] font-medium tracking-[0.2em] text-[#e5bd78] sm:text-sm sm:tracking-[0.4em] md:text-base">
-            {profile.role}
-          </p>
+          {/* Profesión */}
+          <div className="mt-1 flex flex-col items-center gap-1">
+            {profile.role.map((line, index) => (
+              <div key={index} className="flex items-center gap-2">
+                {index === 0 && (
+                  <span className="h-px w-5 bg-[#a66e32]" />
+                )}
 
-          <span className="h-px w-8 bg-[#a66e32] sm:w-16" />
+                <p className="text-[11px] font-semibold tracking-[0.22em] text-[#e5bd78]">
+                  {line}
+                </p>
+
+                {index === 0 && (
+                  <span className="h-px w-5 bg-[#a66e32]" />
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* DESKTOP / TABLET */}
+      <section className="relative hidden h-[450px] w-full items-center justify-center overflow-hidden bg-[#080808] sm:flex lg:h-[520px]">
+
+        <svg
+          viewBox="0 0 1920 600"
+          preserveAspectRatio="none"
+          className="absolute inset-0 h-full w-full"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="circuitGlow" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#a66e32" stopOpacity="0.15" />
+              <stop offset="50%" stopColor="#e5bd78" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#a66e32" stopOpacity="0.15" />
+            </linearGradient>
+          </defs>
+
+          <g
+            fill="none"
+            stroke="url(#circuitGlow)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M0 120 H250 L310 165 H500" />
+            <path d="M0 180 H180 L230 225 H420" />
+            <path d="M0 300 H220 L280 260 H480" />
+            <path d="M0 390 H300 L360 345 H550" />
+            <path d="M0 480 H200 L250 435 H450" />
+            <path d="M0 540 H350 L400 500 H600" />
+          </g>
+
+          <g
+            fill="none"
+            stroke="url(#circuitGlow)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M1920 120 H1670 L1610 165 H1420" />
+            <path d="M1920 180 H1740 L1690 225 H1500" />
+            <path d="M1920 300 H1700 L1640 260 H1440" />
+            <path d="M1920 390 H1620 L1560 345 H1370" />
+            <path d="M1920 480 H1720 L1670 435 H1470" />
+            <path d="M1920 540 H1570 L1520 500 H1320" />
+          </g>
+
+          <g fill="#d6a45c">
+            {[
+              [250, 120], [180, 180], [220, 300], [300, 390],
+              [200, 480], [350, 540], [1670, 120], [1740, 180],
+              [1700, 300], [1620, 390], [1720, 480], [1570, 540],
+            ].map(([x, y], i) => (
+              <circle key={i} cx={x} cy={y} r="4" />
+            ))}
+          </g>
+
+          <g fill="#e5bd78" opacity="0.5">
+            <circle cx="100" cy="80" r="2" />
+            <circle cx="500" cy="100" r="2" />
+            <circle cx="250" cy="550" r="2" />
+            <circle cx="1820" cy="80" r="2" />
+            <circle cx="1400" cy="100" r="2" />
+            <circle cx="1650" cy="550" r="2" />
+          </g>
+        </svg>
+
+        <div className="relative z-10 flex w-full flex-col items-center justify-center px-4">
+          <svg
+            viewBox="0 0 1100 220"
+            className="h-auto w-full max-w-[1100px] overflow-visible"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <CircuitText text={profile.name} y={25} scale={1.15} />
+            <CircuitText text={profile.surname} y={115} scale={0.85} />
+          </svg>
+
+          <div className="mt-5 flex items-center gap-3 sm:mt-7 sm:gap-5">
+            <span className="h-px w-8 bg-[#a66e32] sm:w-16" />
+
+            <p className="whitespace-nowrap text-[10px] font-medium tracking-[0.25em] text-[#e5bd78] sm:text-sm sm:tracking-[0.4em] md:text-base">
+              {profile.role.join(" ")}
+            </p>
+
+            <span className="h-px w-8 bg-[#a66e32] sm:w-16" />
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
