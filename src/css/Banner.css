@@ -1,0 +1,67 @@
+.circuit-draw path {
+  stroke-dasharray: 100 100;
+  stroke-dashoffset: 100;
+  animation: circuit-draw 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes circuit-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.banner-data {
+  animation: data-appear 0.85s ease-out forwards;
+}
+
+@keyframes data-appear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.energy-pulse path {
+  stroke-dasharray: 8 92;
+  stroke-dashoffset: 100;
+  opacity: 0;
+}
+
+.energy-pulse.active path {
+  animation: energy-flow 2.8s linear infinite;
+}
+
+.energy-pulse.active path:nth-child(2n) {
+  animation-duration: 3.2s;
+}
+
+.energy-pulse.active path:nth-child(3n) {
+  animation-duration: 3.6s;
+}
+
+@keyframes energy-flow {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.9;
+  }
+
+  85% {
+    opacity: 0.9;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}

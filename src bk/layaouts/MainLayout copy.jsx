@@ -1,4 +1,4 @@
-import HeroBanner from "@/src/components/Banner3";
+import HeroBanner from "@/src bk/components/Banner3";
 
 export default function MainLayout({ children }) {
   return (

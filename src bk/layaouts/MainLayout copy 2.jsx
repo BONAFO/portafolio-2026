@@ -1,5 +1,5 @@
 
-import HeroBanner from "@/src/components/Banner";
+import HeroBanner from "@/src bk/components/Banner";
 
 export default function MainLayout({ children }) {
   return (

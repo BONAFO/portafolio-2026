@@ -1,9 +1,5 @@
-import MainLayout from "@/src/layaouts/MainLayout";
+import PageContainer from "@/src/containers/PageContainer";
 
 export default function Home() {
-  return (
-    <MainLayout>
-
-    </MainLayout>
-  );
+  return <PageContainer />;
 }

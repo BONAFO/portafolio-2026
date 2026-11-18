@@ -1,0 +1,80 @@
+.arrow-draw path {
+  stroke-dasharray: 100 100;
+  stroke-dashoffset: 100;
+  animation: arrow-draw 1.1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes arrow-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.arrow-pulse path {
+  stroke-dasharray: 10 90;
+  stroke-dashoffset: 100;
+  opacity: 0;
+}
+
+.arrow-pulse.active path {
+  animation: arrow-energy 2.8s linear infinite;
+}
+
+.arrow-pulse.active path:nth-child(2n) {
+  animation-duration: 3.2s;
+}
+
+.arrow-pulse.active path:nth-child(3n) {
+  animation-duration: 3.6s;
+}
+
+@keyframes arrow-energy {
+  0% {
+    stroke-dashoffset: 100;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+.action-arrow {
+  animation: arrow-appear 0.7s ease-out forwards;
+}
+
+@keyframes arrow-appear {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.arrow-float {
+  animation: arrow-float 2s ease-in-out infinite;
+}
+
+@keyframes arrow-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(9px);
+  }
+}
