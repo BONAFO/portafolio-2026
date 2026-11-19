@@ -1,8 +1,6 @@
-
 export function BannerMobile({
   profile,
   mobilePaths,
-  CircuitText,
   showData,
   bannerLoaded,
   handleLinesLoaded,
@@ -111,8 +109,33 @@ export function BannerMobile({
             className="h-auto w-full max-w-[560px] overflow-visible"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <CircuitText text={profile.name} y={25} scale={1.5} />
-            <CircuitText text={profile.surname} y={115} scale={1.1} />
+            <text
+              x="550"
+              y="95"
+              textAnchor="middle"
+              className="banner-title-pulse"
+              fill="#e5bd78"
+              fontSize="105"
+              fontWeight="500"
+              letterSpacing="5"
+              fontFamily="serif"
+            >
+              {profile.name}
+            </text>
+
+            <text
+              x="550"
+              y="185"
+              textAnchor="middle"
+              className="banner-title-pulse"
+              fill="#e5bd78"
+              fontSize="85"
+              fontWeight="500"
+              letterSpacing="5"
+              fontFamily="serif"
+            >
+              {profile.surname}
+            </text>
           </svg>
 
           <div className="mt-3 flex flex-col items-center gap-2">
@@ -122,7 +145,7 @@ export function BannerMobile({
                   <span className="h-px w-7 bg-[#a66e32]" />
                 )}
 
-                <p className="text-xs font-semibold tracking-[0.22em] text-[#e5bd78]">
+                <p className="banner-title-pulse text-xs font-semibold tracking-[0.22em] text-[#e5bd78]">
                   {line}
                 </p>
 
@@ -138,11 +161,9 @@ export function BannerMobile({
   );
 }
 
-
 export function BannerDesktop({
   profile,
   desktopPaths,
-  CircuitText,
   showData,
   bannerLoaded,
   handleLinesLoaded,
@@ -259,14 +280,39 @@ export function BannerDesktop({
             className="h-auto w-full max-w-[1100px] overflow-visible"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <CircuitText text={profile.name} y={25} scale={1.15} />
-            <CircuitText text={profile.surname} y={115} scale={0.85} />
+            <text
+              x="550"
+              y="95"
+              textAnchor="middle"
+              className="banner-title-pulse"
+              fill="#e5bd78"
+              fontSize="105"
+              fontWeight="500"
+              letterSpacing="5"
+              fontFamily="serif"
+            >
+              {profile.name}
+            </text>
+
+            <text
+              x="550"
+              y="185"
+              textAnchor="middle"
+              className="banner-title-pulse"
+              fill="#e5bd78"
+              fontSize="85"
+              fontWeight="500"
+              letterSpacing="5"
+              fontFamily="serif"
+            >
+              {profile.surname}
+            </text>
           </svg>
 
           <div className="mt-5 flex items-center gap-3 sm:mt-7 sm:gap-5">
             <span className="h-px w-8 bg-[#a66e32] sm:w-16" />
 
-            <p className="whitespace-nowrap text-[10px] font-medium tracking-[0.25em] text-[#e5bd78] sm:text-sm sm:tracking-[0.4em] md:text-base">
+            <p className="banner-title-pulse whitespace-nowrap text-[10px] font-medium tracking-[0.25em] text-[#e5bd78] sm:text-sm sm:tracking-[0.4em] md:text-base">
               {profile.role.join(" ")}
             </p>
 

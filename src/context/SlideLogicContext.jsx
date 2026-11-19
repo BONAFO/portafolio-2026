@@ -11,7 +11,7 @@ import {
 } from "react";
 
 import { useScreen } from "@/src/context/ScreenContext";
-import SCREENS from "@/src/screens/Screens";
+import SCREENS from "@/src/data/Screens";
 
 const SlideLogicContext = createContext(null);
 

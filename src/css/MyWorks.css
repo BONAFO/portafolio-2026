@@ -1,0 +1,41 @@
+
+@keyframes works-light-on {
+  0% {
+    opacity: 0;
+    filter: brightness(0.15);
+    box-shadow: 0 0 0 rgba(229, 189, 120, 0);
+  }
+
+  55% {
+    opacity: 1;
+    filter: brightness(1.8);
+    box-shadow: 0 0 40px rgba(229, 189, 120, 0.35);
+  }
+
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+    box-shadow: 0 0 0 rgba(229, 189, 120, 0);
+  }
+}
+
+.works-light-on {
+  opacity: 0;
+  animation: works-light-on 900ms ease-out forwards;
+}
+
+
+.works-circuit-pulse {
+  animation: worksCircuitPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes worksCircuitPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}

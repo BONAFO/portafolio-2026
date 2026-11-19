@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { useScreen } from "@/src/context/ScreenContext";
 import { useSlideLogic } from "@/src/context/SlideLogicContext";
-import { profile } from "@/src/Data";
+import { profile } from "@/src/data/Data";
 import { BannerDesktop, BannerMobile } from "@/src/components/Banner";
 import ActionArrow from "@/src/components/ActionArrow";
 import "@/src/css/Banner.css";

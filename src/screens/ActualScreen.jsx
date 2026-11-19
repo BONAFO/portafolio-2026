@@ -5,7 +5,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 
 import { useScreen } from "@/src/context/ScreenContext";
 import { useSlideLogic } from "@/src/context/SlideLogicContext";
-import SCREENS from "@/src/screens/Screens";
+import SCREENS from "@/src/data/Screens";
 
 export default function ActualScreen() {
   const { screenLoaded } = useScreen();
