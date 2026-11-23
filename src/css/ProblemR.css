@@ -1,0 +1,41 @@
+   @keyframes problemCircuitFlow {
+        from { stroke-dashoffset: 100; }
+        to { stroke-dashoffset: -100; }
+      }
+
+      @keyframes problemNodeAppear {
+        to { opacity: .8; }
+      }
+
+      .problem-energy-pulse path {
+        stroke-dasharray: 12 88;
+        stroke-dashoffset: 100;
+        animation: problemCircuitFlow 3s linear infinite;
+      }
+
+      .problem-energy-pulse path:nth-child(2n) {
+        animation-duration: 3.2s;
+      }
+
+      .problem-energy-pulse path:nth-child(3n) {
+        animation-duration: 3.6s;
+      }
+
+      .problem-circuit-node {
+        fill: #d6a45c;
+        opacity: 0;
+        animation: problemNodeAppear .5s ease-out 1.5s forwards;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .problem-energy-pulse path {
+          animation: none;
+          opacity: .8;
+          stroke-dashoffset: 0;
+        }
+
+        .problem-circuit-node {
+          animation: none;
+          opacity: .8;
+        }
+      }

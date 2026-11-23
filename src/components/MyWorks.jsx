@@ -182,7 +182,6 @@ export function MyWorksDesk() {
 
     clearPageTimer(index);
 
-    // Liberar el hover inmediatamente.
     activeHoverRef.current = null;
     setHoveredIndex(null);
 
@@ -221,16 +220,6 @@ export function MyWorksDesk() {
 
     return () => clearTimeout(timer);
   }, [linesVisible]);
-
-  useEffect(() => {
-    if (!showTitle) return;
-
-    const timer = setTimeout(() => {
-      setCardsStarted(true);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [showTitle]);
 
   useEffect(() => {
     if (!ready || totalGroups <= 1 || hoveredIndex !== null) return;
@@ -291,6 +280,7 @@ export function MyWorksDesk() {
         .works-energy-pulse.active path:nth-child(2n) { animation-duration: 3.2s; }
         .works-energy-pulse.active path:nth-child(3n) { animation-duration: 3.6s; }
       `}</style>
+
       <header className="flex h-[17dvh] min-h-[110px] shrink-0 items-center justify-center px-8">
         <div className="flex w-full items-center justify-center gap-8">
           <svg
@@ -405,12 +395,11 @@ export function MyWorksDesk() {
             </defs>
 
             <g
-              style={{
-                opacity: showTitle ? 1 : 0,
-                transform: showTitle ? "translateY(0)" : "translateY(18px)",
-                filter: showTitle ? "blur(0)" : "blur(7px)",
-                transition:
-                  "opacity 850ms ease-out, transform 850ms ease-out, filter 850ms ease-out",
+              className={showTitle ? "works-title-enter" : "opacity-0"}
+              onAnimationEnd={(event) => {
+                if (event.target === event.currentTarget) {
+                  setCardsStarted(true);
+                }
               }}
             >
               <text
@@ -458,6 +447,7 @@ export function MyWorksDesk() {
                 <feGaussianBlur stdDeviation="4" />
               </filter>
             </defs>
+
             <g transform="translate(600 0) scale(-1 1)">
               <g
                 fill="none"
@@ -648,16 +638,6 @@ export function MyWorksMobile() {
   }, [linesVisible]);
 
   useEffect(() => {
-    if (!showTitle) return;
-
-    const timer = setTimeout(() => {
-      setCardsStarted(true);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [showTitle]);
-
-  useEffect(() => {
     if (!ready || totalGroups <= 1) return;
 
     const timer = setTimeout(() => {
@@ -710,6 +690,7 @@ export function MyWorksMobile() {
         .works-energy-pulse.active path:nth-child(2n) { animation-duration: 3.2s; }
         .works-energy-pulse.active path:nth-child(3n) { animation-duration: 3.6s; }
       `}</style>
+
       <header className="flex h-[12dvh] min-h-[64px] shrink-0 items-center justify-center px-3">
         <div className="flex w-full items-center justify-center gap-3">
           <svg
@@ -801,13 +782,13 @@ export function MyWorksMobile() {
           </svg>
 
           <div
-            className="w-[min(34vw,170px)] shrink-0 text-center"
-            style={{
-              opacity: showTitle ? 1 : 0,
-              transform: showTitle ? "translateY(0)" : "translateY(12px)",
-              filter: showTitle ? "blur(0)" : "blur(6px)",
-              transition:
-                "opacity 850ms ease-out, transform 850ms ease-out, filter 850ms ease-out",
+            className={`w-[min(34vw,170px)] shrink-0 text-center ${
+              showTitle ? "works-title-enter" : "opacity-0"
+            }`}
+            onAnimationEnd={(event) => {
+              if (event.target === event.currentTarget) {
+                setCardsStarted(true);
+              }
             }}
           >
             <span className="whitespace-nowrap font-serif text-[clamp(15px,4vw,22px)] font-medium tracking-[0.18em] text-[#e5bd78]">
