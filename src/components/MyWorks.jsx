@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { WORKS } from "@/src/data/Works";
 import "@/src/css/MyWorks.css";
 
 const WORKS_CHANGE_INTERVAL = 10000;
 const WORK_PAGE_CHANGE_INTERVAL = 4000;
 const WORK_PAGE_FADE_DURATION = 1000;
+
+const DESK_SCALE = 0;
+const MOBILE_SCALE = 0;
 
 export function MyWorksDesk() {
   const [groupIndex, setGroupIndex] = useState(0);
@@ -179,6 +182,10 @@ export function MyWorksDesk() {
 
     clearPageTimer(index);
 
+    // Liberar el hover inmediatamente.
+    activeHoverRef.current = null;
+    setHoveredIndex(null);
+
     const transition = transitionFramesRef.current[index];
 
     if (transition) {
@@ -194,9 +201,6 @@ export function MyWorksDesk() {
 
     transitionFrame(index, work.url, work.name, -1, () => {
       delete pageIndexesRef.current[index];
-
-      activeHoverRef.current = null;
-      setHoveredIndex(null);
     });
   };
 
@@ -239,7 +243,7 @@ export function MyWorksDesk() {
     return () => clearTimeout(groupTimerRef.current);
   }, [ready, totalGroups, groupIndex, hoveredIndex]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateScales = () => {
       const updated = {};
 
@@ -247,8 +251,9 @@ export function MyWorksDesk() {
         if (!container) return;
 
         const { width, height } = container.getBoundingClientRect();
+        const baseScale = Math.max(width / 1280, height / 720);
 
-        updated[index] = Math.max(width / 1280, height / 720);
+        updated[index] = baseScale * (1 + DESK_SCALE / 100);
       });
 
       setScales(updated);
@@ -274,6 +279,18 @@ export function MyWorksDesk() {
 
   return (
     <section className="relative flex h-full w-full flex-col overflow-hidden bg-[#080808]">
+      <style>{`
+        @keyframes works-energy-flow {
+          0% { stroke-dashoffset: 100; opacity: 0; }
+          10% { opacity: 0.95; }
+          85% { opacity: 0.95; }
+          100% { stroke-dashoffset: 0; opacity: 0; }
+        }
+        .works-energy-pulse path { stroke-dasharray: 8 92; stroke-dashoffset: 100; opacity: 0; }
+        .works-energy-pulse.active path { animation: works-energy-flow 2.8s linear infinite; }
+        .works-energy-pulse.active path:nth-child(2n) { animation-duration: 3.2s; }
+        .works-energy-pulse.active path:nth-child(3n) { animation-duration: 3.6s; }
+      `}</style>
       <header className="flex h-[17dvh] min-h-[110px] shrink-0 items-center justify-center px-8">
         <div className="flex w-full items-center justify-center gap-8">
           <svg
@@ -303,9 +320,12 @@ export function MyWorksDesk() {
                 filter="url(#worksDeskGlowLeft)"
                 className="works-circuit-pulse"
               >
-                <path d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600" />
-                <path d="M0 50 H45 L75 80 H165 L195 50" />
-                <path d="M270 50 L300 80 H410 L440 50" />
+                <path
+                  pathLength="100"
+                  d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
+                />
+                <path pathLength="100" d="M0 50 H45 L75 80 H165 L195 50" />
+                <path pathLength="100" d="M270 50 L300 80 H410 L440 50" />
               </g>
 
               <g
@@ -318,9 +338,43 @@ export function MyWorksDesk() {
                     "stroke-dashoffset 1.8s cubic-bezier(0.65, 0, 0.35, 1)",
                 }}
               >
-                <path d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600" />
-                <path d="M0 50 H45 L75 80 H165 L195 50" />
-                <path d="M270 50 L300 80 H410 L440 50" />
+                <path
+                  pathLength="100"
+                  d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
+                />
+                <path pathLength="100" d="M0 50 H45 L75 80 H165 L195 50" />
+                <path pathLength="100" d="M270 50 L300 80 H410 L440 50" />
+              </g>
+
+              <g
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`works-energy-pulse ${linesVisible ? "active" : ""}`}
+              >
+                <path
+                  pathLength="100"
+                  d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
+                  stroke="#ffe7b5"
+                  strokeWidth="2.5"
+                  filter="url(#worksDeskGlowLeft)"
+                />
+
+                <path
+                  pathLength="100"
+                  d="M0 50 H45 L75 80 H165 L195 50"
+                  stroke="#ffe7b5"
+                  strokeWidth="2.5"
+                  filter="url(#worksDeskGlowLeft)"
+                />
+
+                <path
+                  pathLength="100"
+                  d="M270 50 L300 80 H410 L440 50"
+                  stroke="#ffe7b5"
+                  strokeWidth="2.5"
+                  filter="url(#worksDeskGlowLeft)"
+                />
               </g>
 
               <g fill="#d6a45c">
@@ -399,6 +453,11 @@ export function MyWorksDesk() {
             className="h-[75px] min-w-0 flex-1"
             xmlns="http://www.w3.org/2000/svg"
           >
+            <defs>
+              <filter id="worksDeskGlowRight">
+                <feGaussianBlur stdDeviation="4" />
+              </filter>
+            </defs>
             <g transform="translate(600 0) scale(-1 1)">
               <g
                 fill="none"
@@ -412,12 +471,15 @@ export function MyWorksDesk() {
                 <g
                   stroke="#a66e32"
                   strokeWidth="4"
-                  filter="url(#worksDeskGlowLeft)"
+                  filter="url(#worksDeskGlowRight)"
                   className="works-circuit-pulse"
                 >
-                  <path d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600" />
-                  <path d="M0 50 H45 L75 80 H165 L195 50" />
-                  <path d="M270 50 L300 80 H410 L440 50" />
+                  <path
+                    pathLength="100"
+                    d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
+                  />
+                  <path pathLength="100" d="M0 50 H45 L75 80 H165 L195 50" />
+                  <path pathLength="100" d="M270 50 L300 80 H410 L440 50" />
                 </g>
 
                 <g
@@ -430,9 +492,43 @@ export function MyWorksDesk() {
                       "stroke-dashoffset 1.8s cubic-bezier(0.65, 0, 0.35, 1)",
                   }}
                 >
-                  <path d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600" />
-                  <path d="M0 50 H45 L75 80 H165 L195 50" />
-                  <path d="M270 50 L300 80 H410 L440 50" />
+                  <path
+                    pathLength="100"
+                    d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
+                  />
+                  <path pathLength="100" d="M0 50 H45 L75 80 H165 L195 50" />
+                  <path pathLength="100" d="M270 50 L300 80 H410 L440 50" />
+                </g>
+
+                <g
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className={`works-energy-pulse ${linesVisible ? "active" : ""}`}
+                >
+                  <path
+                    pathLength="100"
+                    d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
+                    stroke="#ffe7b5"
+                    strokeWidth="2.5"
+                    filter="url(#worksDeskGlowRight)"
+                  />
+
+                  <path
+                    pathLength="100"
+                    d="M0 50 H45 L75 80 H165 L195 50"
+                    stroke="#ffe7b5"
+                    strokeWidth="2.5"
+                    filter="url(#worksDeskGlowRight)"
+                  />
+
+                  <path
+                    pathLength="100"
+                    d="M270 50 L300 80 H410 L440 50"
+                    stroke="#ffe7b5"
+                    strokeWidth="2.5"
+                    filter="url(#worksDeskGlowRight)"
+                  />
                 </g>
 
                 <g fill="#d6a45c">
@@ -512,6 +608,7 @@ export function MyWorksDesk() {
     </section>
   );
 }
+
 export function MyWorksMobile() {
   const [groupIndex, setGroupIndex] = useState(0);
   const [loaded, setLoaded] = useState([]);
@@ -571,7 +668,7 @@ export function MyWorksMobile() {
     return () => clearTimeout(timer);
   }, [ready, totalGroups, groupIndex]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     containersRef.current = containersRef.current.slice(0, works.length);
 
     const updateScales = () => {
@@ -581,7 +678,9 @@ export function MyWorksMobile() {
 
           const { width, height } = container.getBoundingClientRect();
 
-          return Math.max(width / 390, height / 844) * 0.8;
+          const baseScale = Math.max(width / 390, height / 844) * 0.8;
+
+          return baseScale * (1 + MOBILE_SCALE / 100);
         }),
       );
     };
@@ -599,6 +698,18 @@ export function MyWorksMobile() {
 
   return (
     <section className="relative flex h-full w-full flex-col overflow-hidden bg-[#080808]">
+      <style>{`
+        @keyframes works-energy-flow {
+          0% { stroke-dashoffset: 100; opacity: 0; }
+          10% { opacity: 0.95; }
+          85% { opacity: 0.95; }
+          100% { stroke-dashoffset: 0; opacity: 0; }
+        }
+        .works-energy-pulse path { stroke-dasharray: 8 92; stroke-dashoffset: 100; opacity: 0; }
+        .works-energy-pulse.active path { animation: works-energy-flow 2.8s linear infinite; }
+        .works-energy-pulse.active path:nth-child(2n) { animation-duration: 3.2s; }
+        .works-energy-pulse.active path:nth-child(3n) { animation-duration: 3.6s; }
+      `}</style>
       <header className="flex h-[12dvh] min-h-[64px] shrink-0 items-center justify-center px-3">
         <div className="flex w-full items-center justify-center gap-3">
           <svg
@@ -628,8 +739,11 @@ export function MyWorksMobile() {
                 filter="url(#worksMobileGlowLeft)"
                 className="works-circuit-pulse"
               >
-                <path d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300" />
-                <path d="M0 35 H25 L45 55 H95 L115 35" />
+                <path
+                  pathLength="100"
+                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
+                />
+                <path pathLength="100" d="M0 35 H25 L45 55 H95 L115 35" />
               </g>
 
               <g
@@ -642,8 +756,34 @@ export function MyWorksMobile() {
                     "stroke-dashoffset 1.5s cubic-bezier(0.65, 0, 0.35, 1)",
                 }}
               >
-                <path d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300" />
-                <path d="M0 35 H25 L45 55 H95 L115 35" />
+                <path
+                  pathLength="100"
+                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
+                />
+                <path pathLength="100" d="M0 35 H25 L45 55 H95 L115 35" />
+              </g>
+
+              <g
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`works-energy-pulse ${linesVisible ? "active" : ""}`}
+              >
+                <path
+                  pathLength="100"
+                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
+                  stroke="#ffe7b5"
+                  strokeWidth="2.5"
+                  filter="url(#worksMobileGlowLeft)"
+                />
+
+                <path
+                  pathLength="100"
+                  d="M0 35 H25 L45 55 H95 L115 35"
+                  stroke="#ffe7b5"
+                  strokeWidth="2.5"
+                  filter="url(#worksMobileGlowLeft)"
+                />
               </g>
 
               <g fill="#d6a45c">
@@ -703,8 +843,11 @@ export function MyWorksMobile() {
                 filter="url(#worksMobileGlowRight)"
                 className="works-circuit-pulse"
               >
-                <path d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300" />
-                <path d="M0 35 H25 L45 55 H95 L115 35" />
+                <path
+                  pathLength="100"
+                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
+                />
+                <path pathLength="100" d="M0 35 H25 L45 55 H95 L115 35" />
               </g>
 
               <g
@@ -717,8 +860,34 @@ export function MyWorksMobile() {
                     "stroke-dashoffset 1.5s cubic-bezier(0.65, 0, 0.35, 1)",
                 }}
               >
-                <path d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300" />
-                <path d="M0 35 H25 L45 55 H95 L115 35" />
+                <path
+                  pathLength="100"
+                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
+                />
+                <path pathLength="100" d="M0 35 H25 L45 55 H95 L115 35" />
+              </g>
+
+              <g
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`works-energy-pulse ${linesVisible ? "active" : ""}`}
+              >
+                <path
+                  pathLength="100"
+                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
+                  stroke="#ffe7b5"
+                  strokeWidth="2.5"
+                  filter="url(#worksMobileGlowRight)"
+                />
+
+                <path
+                  pathLength="100"
+                  d="M0 35 H25 L45 55 H95 L115 35"
+                  stroke="#ffe7b5"
+                  strokeWidth="2.5"
+                  filter="url(#worksMobileGlowRight)"
+                />
               </g>
 
               <g fill="#d6a45c">
