@@ -282,6 +282,7 @@ export function ProblemRMobile() {
 
   return (
     <section className="flex h-full min-h-0 w-full flex-col overflow-hidden bg-[#080808] sm:hidden">
+      {/* HEADER */}
       <div className="relative flex h-[88px] w-full shrink-0 items-center justify-center overflow-hidden bg-[#080808]">
         <div className="absolute left-0 top-1/2 h-[55px] w-[27%] -translate-y-1/2">
           <svg
@@ -415,6 +416,7 @@ export function ProblemRMobile() {
         </div>
       </div>
 
+      {/* CONTENT */}
       {titleLoaded && (
         <div className="banner-data min-h-0 flex-1 overflow-y-auto">
           <div className="flex min-h-full flex-col px-4 pb-4 pt-5">
@@ -475,16 +477,17 @@ export function ProblemRMobile() {
                 </div>
               ))}
             </div>
-  <div className="mt-9 flex shrink-0 items-center gap-3 border-l-2 border-[#a66e32] py-2 pl-4">
-  <span className="shrink-0 text-[clamp(1.25rem,5.3vw,1.5rem)] text-[#d6a45c]">
-    ✦
-  </span>
 
-  <p className="min-w-0 text-[clamp(0.875rem,3.73vw,0.875rem)] italic leading-relaxed text-[#d0c2ad]">
-    A veces la solución no aparece enseguida. Pero eso no significa que deje
-    de buscarla.
-  </p>
-</div>
+            <div className="mt-9 flex shrink-0 items-center gap-3 border-l-2 border-[#a66e32] py-2 pl-4">
+              <span className="shrink-0 text-[clamp(1.25rem,5.3vw,1.5rem)] text-[#d6a45c]">
+                ✦
+              </span>
+
+              <p className="min-w-0 text-[clamp(0.875rem,3.73vw,0.875rem)] italic leading-relaxed text-[#d0c2ad]">
+                A veces la solución no aparece enseguida. Pero eso no significa
+                que deje de buscarla.
+              </p>
+            </div>
           </div>
         </div>
       )}
