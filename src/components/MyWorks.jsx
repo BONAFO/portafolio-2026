@@ -11,13 +11,62 @@ const WORK_PAGE_FADE_DURATION = 1000;
 const DESK_SCALE = 0;
 const MOBILE_SCALE = 0;
 
+const DESK_PATHS = [
+  "M0 40 H35 V20 H75 V40 H115 V60 H155 V40 H205 V20 H250",
+  "M35 20 V5 H65 V12 H95",
+  "M75 40 V75 H115 V65 H145",
+  "M155 40 V10 H190 V25 H225",
+  "M205 20 V55 H245 V45 H280",
+];
+
+const DESK_NODES = [
+  [35, 20],
+  [75, 40],
+  [115, 60],
+  [155, 40],
+  [205, 20],
+  [250, 20],
+  [65, 12],
+  [95, 12],
+  [115, 75],
+  [145, 65],
+  [190, 25],
+  [225, 25],
+  [245, 55],
+  [280, 45],
+];
+
+const MOBILE_PATHS = [
+  "M0 35 H25 V18 H55 V35 H85 V52 H115 V35 H150",
+  "M25 18 V5 H45 V10 H65",
+  "M55 35 V62 H85 V55 H105",
+  "M115 35 V12 H140 V22 H165",
+  "M150 35 V55 H175 V48 H195",
+];
+
+const MOBILE_NODES = [
+  [25, 18],
+  [55, 35],
+  [85, 52],
+  [115, 35],
+  [150, 35],
+  [45, 10],
+  [65, 10],
+  [85, 62],
+  [105, 55],
+  [140, 22],
+  [165, 22],
+  [175, 55],
+  [195, 48],
+];
+
 export function MyWorksDesk() {
   const [groupIndex, setGroupIndex] = useState(0);
   const [loaded, setLoaded] = useState([]);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [scales, setScales] = useState({});
-  const [linesVisible, setLinesVisible] = useState(false);
-  const [showTitle, setShowTitle] = useState(false);
+  const [linesLoaded, setLinesLoaded] = useState(false);
+  const [titleLoaded, setTitleLoaded] = useState(false);
   const [cardsStarted, setCardsStarted] = useState(false);
 
   const containersRef = useRef([]);
@@ -204,22 +253,14 @@ export function MyWorksDesk() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLinesVisible(true);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (!linesVisible) return;
+    if (!titleLoaded) return;
 
     const timer = setTimeout(() => {
-      setShowTitle(true);
-    }, 1900);
+      setCardsStarted(true);
+    }, 200);
 
     return () => clearTimeout(timer);
-  }, [linesVisible]);
+  }, [titleLoaded]);
 
   useEffect(() => {
     if (!ready || totalGroups <= 1 || hoveredIndex !== null) return;
@@ -266,122 +307,75 @@ export function MyWorksDesk() {
     };
   }, []);
 
+  const renderCircuit = (mirrored = false) => (
+    <svg
+      viewBox="0 0 300 80"
+      preserveAspectRatio="none"
+      className="h-[75px] min-w-0 flex-1"
+      fill="none"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g transform={mirrored ? "translate(300 0) scale(-1 1)" : undefined}>
+        <g
+          className="works-circuit-draw"
+          fill="none"
+          stroke="#a66e32"
+          strokeWidth="1.1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          {DESK_PATHS.map((path, index) => (
+            <path
+              key={index}
+              d={path}
+              pathLength="100"
+              style={{ animationDelay: `${index * 0.08}s` }}
+              onAnimationEnd={
+                !mirrored && index === DESK_PATHS.length - 1
+                  ? () => setLinesLoaded(true)
+                  : undefined
+              }
+            />
+          ))}
+        </g>
+
+        <g
+          className="works-energy-pulse"
+          fill="none"
+          stroke="#ffe0a0"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          {DESK_PATHS.map((path, index) => (
+            <path
+              key={index}
+              d={path}
+              pathLength="100"
+              style={{ animationDelay: `${index * 0.35}s` }}
+            />
+          ))}
+        </g>
+
+        {DESK_NODES.map(([x, y], index) => (
+          <circle
+            key={index}
+            cx={x}
+            cy={y}
+            r="2"
+            className="works-circuit-node"
+          />
+        ))}
+      </g>
+    </svg>
+  );
+
   return (
     <section className="relative flex h-full w-full flex-col overflow-hidden bg-[#080808]">
-      <style>{`
-        @keyframes works-energy-flow {
-          0% { stroke-dashoffset: 100; opacity: 0; }
-          10% { opacity: 0.95; }
-          85% { opacity: 0.95; }
-          100% { stroke-dashoffset: 0; opacity: 0; }
-        }
-        .works-energy-pulse path { stroke-dasharray: 8 92; stroke-dashoffset: 100; opacity: 0; }
-        .works-energy-pulse.active path { animation: works-energy-flow 2.8s linear infinite; }
-        .works-energy-pulse.active path:nth-child(2n) { animation-duration: 3.2s; }
-        .works-energy-pulse.active path:nth-child(3n) { animation-duration: 3.6s; }
-      `}</style>
-
       <header className="flex h-[17dvh] min-h-[110px] shrink-0 items-center justify-center px-8">
         <div className="flex w-full items-center justify-center gap-8">
-          <svg
-            viewBox="0 0 600 100"
-            preserveAspectRatio="none"
-            className="h-[75px] min-w-0 flex-1"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <filter id="worksDeskGlowLeft">
-                <feGaussianBlur stdDeviation="4" />
-              </filter>
-            </defs>
-
-            <g
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{
-                opacity: linesVisible ? 1 : 0,
-                transition: "opacity 500ms ease-out",
-              }}
-            >
-              <g
-                stroke="#a66e32"
-                strokeWidth="4"
-                filter="url(#worksDeskGlowLeft)"
-                className="works-circuit-pulse"
-              >
-                <path
-                  pathLength="100"
-                  d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
-                />
-                <path pathLength="100" d="M0 50 H45 L75 80 H165 L195 50" />
-                <path pathLength="100" d="M270 50 L300 80 H410 L440 50" />
-              </g>
-
-              <g
-                stroke="#e5bd78"
-                strokeWidth="1.5"
-                style={{
-                  strokeDasharray: 1200,
-                  strokeDashoffset: linesVisible ? 0 : 1200,
-                  transition:
-                    "stroke-dashoffset 1.8s cubic-bezier(0.65, 0, 0.35, 1)",
-                }}
-              >
-                <path
-                  pathLength="100"
-                  d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
-                />
-                <path pathLength="100" d="M0 50 H45 L75 80 H165 L195 50" />
-                <path pathLength="100" d="M270 50 L300 80 H410 L440 50" />
-              </g>
-
-              <g
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`works-energy-pulse ${linesVisible ? "active" : ""}`}
-              >
-                <path
-                  pathLength="100"
-                  d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
-                  stroke="#ffe7b5"
-                  strokeWidth="2.5"
-                  filter="url(#worksDeskGlowLeft)"
-                />
-
-                <path
-                  pathLength="100"
-                  d="M0 50 H45 L75 80 H165 L195 50"
-                  stroke="#ffe7b5"
-                  strokeWidth="2.5"
-                  filter="url(#worksDeskGlowLeft)"
-                />
-
-                <path
-                  pathLength="100"
-                  d="M270 50 L300 80 H410 L440 50"
-                  stroke="#ffe7b5"
-                  strokeWidth="2.5"
-                  filter="url(#worksDeskGlowLeft)"
-                />
-              </g>
-
-              <g fill="#d6a45c">
-                <circle cx="90" cy="50" r="4" />
-                <circle cx="125" cy="20" r="4" />
-                <circle cx="235" cy="20" r="4" />
-                <circle cx="270" cy="50" r="4" />
-                <circle cx="385" cy="15" r="4" />
-                <circle cx="470" cy="15" r="4" />
-                <circle cx="505" cy="50" r="4" />
-                <circle cx="75" cy="80" r="3" />
-                <circle cx="165" cy="80" r="3" />
-                <circle cx="300" cy="80" r="3" />
-                <circle cx="410" cy="80" r="3" />
-              </g>
-            </g>
-          </svg>
+          {renderCircuit()}
 
           <svg
             viewBox="0 0 520 70"
@@ -394,149 +388,47 @@ export function MyWorksDesk() {
               </filter>
             </defs>
 
-            <g
-              className={showTitle ? "works-title-enter" : "opacity-0"}
-              onAnimationEnd={(event) => {
-                if (event.target === event.currentTarget) {
-                  setCardsStarted(true);
-                }
-              }}
-            >
-              <text
-                x="260"
-                y="48"
-                textAnchor="middle"
-                fill="#e5bd78"
-                stroke="#a66e32"
-                strokeWidth="0.7"
-                paintOrder="stroke"
-                fontSize="43"
-                fontWeight="500"
-                letterSpacing="9"
-                fontFamily="serif"
-              >
-                MIS TRABAJOS
-              </text>
-
-              <text
-                x="260"
-                y="48"
-                textAnchor="middle"
-                fill="none"
-                stroke="#ffe0a0"
-                strokeWidth="2"
-                fontSize="43"
-                letterSpacing="9"
-                fontFamily="serif"
-                filter="url(#worksDeskTitleGlow)"
-                className="works-circuit-pulse"
-              >
-                MIS TRABAJOS
-              </text>
-            </g>
-          </svg>
-
-          <svg
-            viewBox="0 0 600 100"
-            preserveAspectRatio="none"
-            className="h-[75px] min-w-0 flex-1"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <filter id="worksDeskGlowRight">
-                <feGaussianBlur stdDeviation="4" />
-              </filter>
-            </defs>
-
-            <g transform="translate(600 0) scale(-1 1)">
+            {linesLoaded && (
               <g
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                style={{
-                  opacity: linesVisible ? 1 : 0,
-                  transition: "opacity 500ms ease-out",
-                }}
+                className="works-title-enter"
+                onAnimationEnd={() => setTitleLoaded(true)}
               >
-                <g
+                <text
+                  x="260"
+                  y="48"
+                  textAnchor="middle"
+                  fill="#e5bd78"
                   stroke="#a66e32"
-                  strokeWidth="4"
-                  filter="url(#worksDeskGlowRight)"
+                  strokeWidth="0.7"
+                  paintOrder="stroke"
+                  fontSize="43"
+                  fontWeight="500"
+                  letterSpacing="9"
+                  fontFamily="serif"
+                >
+                  MIS TRABAJOS
+                </text>
+
+                <text
+                  x="260"
+                  y="48"
+                  textAnchor="middle"
+                  fill="none"
+                  stroke="#ffe0a0"
+                  strokeWidth="2"
+                  fontSize="43"
+                  letterSpacing="9"
+                  fontFamily="serif"
+                  filter="url(#worksDeskTitleGlow)"
                   className="works-circuit-pulse"
                 >
-                  <path
-                    pathLength="100"
-                    d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
-                  />
-                  <path pathLength="100" d="M0 50 H45 L75 80 H165 L195 50" />
-                  <path pathLength="100" d="M270 50 L300 80 H410 L440 50" />
-                </g>
-
-                <g
-                  stroke="#e5bd78"
-                  strokeWidth="1.5"
-                  style={{
-                    strokeDasharray: 1200,
-                    strokeDashoffset: linesVisible ? 0 : 1200,
-                    transition:
-                      "stroke-dashoffset 1.8s cubic-bezier(0.65, 0, 0.35, 1)",
-                  }}
-                >
-                  <path
-                    pathLength="100"
-                    d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
-                  />
-                  <path pathLength="100" d="M0 50 H45 L75 80 H165 L195 50" />
-                  <path pathLength="100" d="M270 50 L300 80 H410 L440 50" />
-                </g>
-
-                <g
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className={`works-energy-pulse ${linesVisible ? "active" : ""}`}
-                >
-                  <path
-                    pathLength="100"
-                    d="M0 50 H90 L125 20 H235 L270 50 H350 L385 15 H470 L505 50 H600"
-                    stroke="#ffe7b5"
-                    strokeWidth="2.5"
-                    filter="url(#worksDeskGlowRight)"
-                  />
-
-                  <path
-                    pathLength="100"
-                    d="M0 50 H45 L75 80 H165 L195 50"
-                    stroke="#ffe7b5"
-                    strokeWidth="2.5"
-                    filter="url(#worksDeskGlowRight)"
-                  />
-
-                  <path
-                    pathLength="100"
-                    d="M270 50 L300 80 H410 L440 50"
-                    stroke="#ffe7b5"
-                    strokeWidth="2.5"
-                    filter="url(#worksDeskGlowRight)"
-                  />
-                </g>
-
-                <g fill="#d6a45c">
-                  <circle cx="90" cy="50" r="4" />
-                  <circle cx="125" cy="20" r="4" />
-                  <circle cx="235" cy="20" r="4" />
-                  <circle cx="270" cy="50" r="4" />
-                  <circle cx="385" cy="15" r="4" />
-                  <circle cx="470" cy="15" r="4" />
-                  <circle cx="505" cy="50" r="4" />
-                  <circle cx="75" cy="80" r="3" />
-                  <circle cx="165" cy="80" r="3" />
-                  <circle cx="300" cy="80" r="3" />
-                  <circle cx="410" cy="80" r="3" />
-                </g>
+                  MIS TRABAJOS
+                </text>
               </g>
-            </g>
+            )}
           </svg>
+
+          {renderCircuit(true)}
         </div>
       </header>
 
@@ -574,9 +466,11 @@ export function MyWorksDesk() {
                     element.appendChild(frame);
                     currentFramesRef.current[index] = frame;
 
-                    frame.addEventListener("load", () => handleLoaded(index), {
-                      once: true,
-                    });
+                    frame.addEventListener(
+                      "load",
+                      () => handleLoaded(index),
+                      { once: true },
+                    );
                   }
                 }}
                 className="absolute inset-0 overflow-hidden"
@@ -603,8 +497,8 @@ export function MyWorksMobile() {
   const [groupIndex, setGroupIndex] = useState(0);
   const [loaded, setLoaded] = useState([]);
   const [scales, setScales] = useState([0.25, 0.25, 0.25]);
-  const [linesVisible, setLinesVisible] = useState(false);
-  const [showTitle, setShowTitle] = useState(false);
+  const [linesLoaded, setLinesLoaded] = useState(false);
+  const [titleLoaded, setTitleLoaded] = useState(false);
   const [cardsStarted, setCardsStarted] = useState(false);
 
   const containersRef = useRef([]);
@@ -620,22 +514,14 @@ export function MyWorksMobile() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLinesVisible(true);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (!linesVisible) return;
+    if (!titleLoaded) return;
 
     const timer = setTimeout(() => {
-      setShowTitle(true);
-    }, 1900);
+      setCardsStarted(true);
+    }, 200);
 
     return () => clearTimeout(timer);
-  }, [linesVisible]);
+  }, [titleLoaded]);
 
   useEffect(() => {
     if (!ready || totalGroups <= 1) return;
@@ -657,7 +543,6 @@ export function MyWorksMobile() {
           if (!container) return 0.25;
 
           const { width, height } = container.getBoundingClientRect();
-
           const baseScale = Math.max(width / 390, height / 844) * 0.8;
 
           return baseScale * (1 + MOBILE_SCALE / 100);
@@ -676,214 +561,88 @@ export function MyWorksMobile() {
     return () => observer.disconnect();
   }, [groupIndex, works.length]);
 
+  const renderCircuit = (mirrored = false) => (
+    <svg
+      viewBox="0 0 200 70"
+      preserveAspectRatio="none"
+      className="h-10 min-w-0 flex-1"
+      fill="none"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g transform={mirrored ? "translate(200 0) scale(-1 1)" : undefined}>
+        <g
+          className="works-circuit-draw"
+          fill="none"
+          stroke="#a66e32"
+          strokeWidth="1.1"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          {MOBILE_PATHS.map((path, index) => (
+            <path
+              key={index}
+              d={path}
+              pathLength="100"
+              style={{ animationDelay: `${index * 0.08}s` }}
+              onAnimationEnd={
+                !mirrored && index === MOBILE_PATHS.length - 1
+                  ? () => setLinesLoaded(true)
+                  : undefined
+              }
+            />
+          ))}
+        </g>
+
+        <g
+          className="works-energy-pulse"
+          fill="none"
+          stroke="#ffe0a0"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          {MOBILE_PATHS.map((path, index) => (
+            <path
+              key={index}
+              d={path}
+              pathLength="100"
+              style={{ animationDelay: `${index * 0.35}s` }}
+            />
+          ))}
+        </g>
+
+        {MOBILE_NODES.map(([x, y], index) => (
+          <circle
+            key={index}
+            cx={x}
+            cy={y}
+            r="2"
+            className="works-circuit-node"
+          />
+        ))}
+      </g>
+    </svg>
+  );
+
   return (
     <section className="relative flex h-full w-full flex-col overflow-hidden bg-[#080808]">
-      <style>{`
-        @keyframes works-energy-flow {
-          0% { stroke-dashoffset: 100; opacity: 0; }
-          10% { opacity: 0.95; }
-          85% { opacity: 0.95; }
-          100% { stroke-dashoffset: 0; opacity: 0; }
-        }
-        .works-energy-pulse path { stroke-dasharray: 8 92; stroke-dashoffset: 100; opacity: 0; }
-        .works-energy-pulse.active path { animation: works-energy-flow 2.8s linear infinite; }
-        .works-energy-pulse.active path:nth-child(2n) { animation-duration: 3.2s; }
-        .works-energy-pulse.active path:nth-child(3n) { animation-duration: 3.6s; }
-      `}</style>
-
       <header className="flex h-[12dvh] min-h-[64px] shrink-0 items-center justify-center px-3">
         <div className="flex w-full items-center justify-center gap-3">
-          <svg
-            viewBox="0 0 300 70"
-            preserveAspectRatio="none"
-            className="h-10 min-w-0 flex-1"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <filter id="worksMobileGlowLeft">
-                <feGaussianBlur stdDeviation="3" />
-              </filter>
-            </defs>
-
-            <g
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{
-                opacity: linesVisible ? 1 : 0,
-                transition: "opacity 500ms ease-out",
-              }}
-            >
-              <g
-                stroke="#a66e32"
-                strokeWidth="4"
-                filter="url(#worksMobileGlowLeft)"
-                className="works-circuit-pulse"
-              >
-                <path
-                  pathLength="100"
-                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
-                />
-                <path pathLength="100" d="M0 35 H25 L45 55 H95 L115 35" />
-              </g>
-
-              <g
-                stroke="#e5bd78"
-                strokeWidth="1.5"
-                style={{
-                  strokeDasharray: 650,
-                  strokeDashoffset: linesVisible ? 0 : 650,
-                  transition:
-                    "stroke-dashoffset 1.5s cubic-bezier(0.65, 0, 0.35, 1)",
-                }}
-              >
-                <path
-                  pathLength="100"
-                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
-                />
-                <path pathLength="100" d="M0 35 H25 L45 55 H95 L115 35" />
-              </g>
-
-              <g
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`works-energy-pulse ${linesVisible ? "active" : ""}`}
-              >
-                <path
-                  pathLength="100"
-                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
-                  stroke="#ffe7b5"
-                  strokeWidth="2.5"
-                  filter="url(#worksMobileGlowLeft)"
-                />
-
-                <path
-                  pathLength="100"
-                  d="M0 35 H25 L45 55 H95 L115 35"
-                  stroke="#ffe7b5"
-                  strokeWidth="2.5"
-                  filter="url(#worksMobileGlowLeft)"
-                />
-              </g>
-
-              <g fill="#d6a45c">
-                <circle cx="35" cy="35" r="3" />
-                <circle cx="55" cy="15" r="3" />
-                <circle cx="115" cy="15" r="3" />
-                <circle cx="135" cy="35" r="3" />
-                <circle cx="205" cy="10" r="3" />
-                <circle cx="255" cy="10" r="3" />
-                <circle cx="280" cy="35" r="3" />
-                <circle cx="45" cy="55" r="2.5" />
-                <circle cx="95" cy="55" r="2.5" />
-              </g>
-            </g>
-          </svg>
+          {renderCircuit()}
 
           <div
             className={`w-[min(34vw,170px)] shrink-0 text-center ${
-              showTitle ? "works-title-enter" : "opacity-0"
+              linesLoaded ? "works-title-enter" : "opacity-0"
             }`}
-            onAnimationEnd={(event) => {
-              if (event.target === event.currentTarget) {
-                setCardsStarted(true);
-              }
-            }}
+            onAnimationEnd={() => setTitleLoaded(true)}
           >
             <span className="whitespace-nowrap font-serif text-[clamp(15px,4vw,22px)] font-medium tracking-[0.18em] text-[#e5bd78]">
               MIS TRABAJOS
             </span>
           </div>
 
-          <svg
-            viewBox="0 0 300 70"
-            preserveAspectRatio="none"
-            className="h-10 min-w-0 flex-1"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <defs>
-              <filter id="worksMobileGlowRight">
-                <feGaussianBlur stdDeviation="3" />
-              </filter>
-            </defs>
-
-            <g
-              transform="translate(300 0) scale(-1 1)"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{
-                opacity: linesVisible ? 1 : 0,
-                transition: "opacity 500ms ease-out",
-              }}
-            >
-              <g
-                stroke="#a66e32"
-                strokeWidth="4"
-                filter="url(#worksMobileGlowRight)"
-                className="works-circuit-pulse"
-              >
-                <path
-                  pathLength="100"
-                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
-                />
-                <path pathLength="100" d="M0 35 H25 L45 55 H95 L115 35" />
-              </g>
-
-              <g
-                stroke="#e5bd78"
-                strokeWidth="1.5"
-                style={{
-                  strokeDasharray: 650,
-                  strokeDashoffset: linesVisible ? 0 : 650,
-                  transition:
-                    "stroke-dashoffset 1.5s cubic-bezier(0.65, 0, 0.35, 1)",
-                }}
-              >
-                <path
-                  pathLength="100"
-                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
-                />
-                <path pathLength="100" d="M0 35 H25 L45 55 H95 L115 35" />
-              </g>
-
-              <g
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`works-energy-pulse ${linesVisible ? "active" : ""}`}
-              >
-                <path
-                  pathLength="100"
-                  d="M0 35 H35 L55 15 H115 L135 35 H185 L205 10 H255 L280 35 H300"
-                  stroke="#ffe7b5"
-                  strokeWidth="2.5"
-                  filter="url(#worksMobileGlowRight)"
-                />
-
-                <path
-                  pathLength="100"
-                  d="M0 35 H25 L45 55 H95 L115 35"
-                  stroke="#ffe7b5"
-                  strokeWidth="2.5"
-                  filter="url(#worksMobileGlowRight)"
-                />
-              </g>
-
-              <g fill="#d6a45c">
-                <circle cx="35" cy="35" r="3" />
-                <circle cx="55" cy="15" r="3" />
-                <circle cx="115" cy="15" r="3" />
-                <circle cx="135" cy="35" r="3" />
-                <circle cx="205" cy="10" r="3" />
-                <circle cx="255" cy="10" r="3" />
-                <circle cx="280" cy="35" r="3" />
-                <circle cx="45" cy="55" r="2.5" />
-                <circle cx="95" cy="55" r="2.5" />
-              </g>
-            </g>
-          </svg>
+          {renderCircuit(true)}
         </div>
       </header>
 

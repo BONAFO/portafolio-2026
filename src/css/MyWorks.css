@@ -1,4 +1,3 @@
-
 @keyframes works-light-on {
   0% {
     opacity: 0;
@@ -23,7 +22,6 @@
   opacity: 0;
   animation: works-light-on 900ms ease-out forwards;
 }
-
 
 .works-circuit-pulse {
   animation: worksCircuitPulse 2.4s ease-in-out infinite;
@@ -56,4 +54,82 @@
 
 .works-title-enter {
   animation: works-title-appear 850ms ease-out forwards;
+}
+
+@keyframes worksCircuitDraw {
+  from {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+
+  to {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+  }
+}
+
+.works-circuit-draw path {
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: worksCircuitDraw 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes worksCircuitFlow {
+  from {
+    stroke-dashoffset: 100;
+  }
+
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+.works-energy-pulse path {
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 12 88;
+  stroke-dashoffset: 100;
+  animation: worksCircuitFlow 3s linear infinite;
+}
+
+.works-energy-pulse path:nth-child(2n) {
+  animation-duration: 3.2s;
+}
+
+.works-energy-pulse path:nth-child(3n) {
+  animation-duration: 3.6s;
+}
+
+@keyframes worksNodeAppear {
+  to {
+    opacity: 0.8;
+  }
+}
+
+.works-circuit-node {
+  fill: #d6a45c;
+  opacity: 0;
+  animation: worksNodeAppear 500ms ease-out 1.5s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .works-circuit-draw path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .works-energy-pulse path {
+    animation: none;
+    opacity: 0.8;
+    stroke-dashoffset: 0;
+  }
+
+  .works-circuit-node {
+    animation: none;
+    opacity: 0.8;
+  }
 }
