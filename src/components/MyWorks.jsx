@@ -626,8 +626,8 @@ export function MyWorksMobile() {
   );
 
   return (
-    <section className="relative flex h-full w-full flex-col overflow-hidden bg-[#080808]">
-      <header className="flex h-[12dvh] min-h-[64px] shrink-0 items-center justify-center px-3">
+    <section className="relative flex h-full min-h-0 w-full flex-col overflow-hidden bg-[#080808]">
+      <header className="flex h-[clamp(64px,12dvh,100px)] w-full shrink-0 items-center justify-center px-3">
         <div className="flex w-full items-center justify-center gap-3">
           {renderCircuit()}
 
@@ -648,7 +648,7 @@ export function MyWorksMobile() {
 
       <div
         key={groupIndex}
-        className="grid min-h-0 flex-1 grid-cols-1 grid-rows-3 gap-2 overflow-hidden px-3 pb-3"
+        className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[repeat(3,minmax(0,1fr))] gap-2 overflow-hidden px-3 pb-3"
       >
         {works.map((work, index) => (
           <a
