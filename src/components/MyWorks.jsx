@@ -535,19 +535,20 @@ export function MyWorksMobile() {
   }, [ready, totalGroups, groupIndex]);
 
   useLayoutEffect(() => {
-    containersRef.current = containersRef.current.slice(0, works.length);
-
     const updateScales = () => {
-      setScales(
-        containersRef.current.map((container) => {
-          if (!container) return 0.25;
+      const nextScales = containersRef.current.map((container) => {
+        if (!container) return 0.25;
 
-          const { width, height } = container.getBoundingClientRect();
-          const baseScale = Math.max(width / 390, height / 844) * 0.8;
+        const { width, height } = container.getBoundingClientRect();
 
-          return baseScale * (1 + MOBILE_SCALE / 100);
-        }),
-      );
+        if (!width || !height) return 0.25;
+
+        const scale = Math.max(width / 390, height / 844);
+
+        return scale * (1 + MOBILE_SCALE / 100);
+      });
+
+      setScales(nextScales);
     };
 
     updateScales();
@@ -565,7 +566,7 @@ export function MyWorksMobile() {
     <svg
       viewBox="0 0 200 70"
       preserveAspectRatio="none"
-      className="h-10 min-w-0 flex-1"
+      className="h-[clamp(22px,5dvh,40px)] min-w-0 flex-1"
       fill="none"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -626,9 +627,9 @@ export function MyWorksMobile() {
   );
 
   return (
-    <section className="relative flex h-full min-h-0 w-full flex-col overflow-hidden bg-[#080808]">
-      <header className="flex h-[clamp(64px,12dvh,100px)] w-full shrink-0 items-center justify-center px-3">
-        <div className="flex w-full items-center justify-center gap-3">
+    <section className="relative grid h-[100dvh] min-h-0 w-full grid-rows-[auto_minmax(0,1fr)] overflow-hidden bg-[#080808]">
+      <header className="flex min-w-0 items-center justify-center px-[clamp(6px,2vw,12px)] py-[1.2dvh]">
+        <div className="flex w-full min-w-0 items-center justify-center gap-[clamp(5px,1.5vw,12px)]">
           {renderCircuit()}
 
           <div
@@ -637,7 +638,7 @@ export function MyWorksMobile() {
             }`}
             onAnimationEnd={() => setTitleLoaded(true)}
           >
-            <span className="whitespace-nowrap font-serif text-[clamp(15px,4vw,22px)] font-medium tracking-[0.18em] text-[#e5bd78]">
+            <span className="whitespace-nowrap font-serif text-[clamp(12px,3.5vw,19px)] font-medium tracking-[0.14em] text-[#e5bd78]">
               MIS TRABAJOS
             </span>
           </div>
@@ -648,7 +649,7 @@ export function MyWorksMobile() {
 
       <div
         key={groupIndex}
-        className="grid min-h-0 flex-1 grid-cols-1 grid-rows-[repeat(3,minmax(0,1fr))] gap-2 overflow-hidden px-3 pb-3"
+        className="grid min-h-0 min-w-0 grid-cols-1 grid-rows-[repeat(3,minmax(0,1fr))] gap-[clamp(5px,1dvh,10px)] overflow-hidden px-[clamp(6px,2vw,12px)] pb-[clamp(6px,1.5dvh,12px)]"
       >
         {works.map((work, index) => (
           <a
@@ -657,15 +658,15 @@ export function MyWorksMobile() {
             target="_blank"
             rel="noopener noreferrer"
             style={{ animationDelay: `${index * 180}ms` }}
-            className={`relative block min-h-0 w-full cursor-pointer overflow-hidden rounded-xl border border-[#e5bd78]/20 bg-[#111] ${
-              ready && cardsStarted ? "works-light-on" : "opacity-0"
+            className={`relative block h-full min-h-0 min-w-0 w-full cursor-pointer overflow-hidden rounded-lg border border-[#e5bd78]/20 bg-[#111] ${
+              cardsStarted ? "works-light-on" : "opacity-0"
             }`}
           >
             <div
               ref={(element) => {
                 containersRef.current[index] = element;
               }}
-              className="absolute inset-0 overflow-hidden"
+              className="absolute inset-0 min-h-0 min-w-0 overflow-hidden"
             >
               <div
                 className="absolute left-1/2 top-1/2 h-[844px] w-[390px] origin-center"
