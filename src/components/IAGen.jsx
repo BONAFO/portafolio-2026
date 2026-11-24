@@ -365,68 +365,70 @@ export function IAGenMobile() {
   }, [titleLoaded]);
 
   return (
-    <section className="flex min-h-0 w-full flex-col overflow-hidden bg-[#080808] sm:hidden">
-      <header className="relative flex h-[88px] w-full shrink-0 items-center justify-center overflow-hidden bg-[#080808]">
-        <div className="absolute left-0 top-1/2 h-[72px] w-[25%] -translate-y-1/2">
+    <section className="flex h-full min-h-0 w-full flex-col overflow-hidden bg-[#080808] sm:hidden">
+      <header className="relative flex h-[clamp(64px,11dvh,96px)] w-full shrink-0 items-center justify-center overflow-hidden bg-[#080808]">
+        <div className="absolute left-0 top-1/2 h-[85%] w-[25%] -translate-y-1/2">
           <CircuitMobile onLoaded={() => setLinesLoaded(true)} />
         </div>
 
         {linesLoaded && (
           <h2
-            className="relative z-10 px-2 text-center font-serif text-[15px] font-medium tracking-[0.13em] text-[#e8d5b5] works-title-enter"
+            className="relative z-10 px-[clamp(4px,2vw,12px)] text-center font-serif text-[clamp(12px,3.6vw,18px)] font-medium tracking-[0.13em] text-[#e8d5b5] works-title-enter"
             onAnimationEnd={() => setTitleLoaded(true)}
           >
             GENERACIÓN CON IA
           </h2>
         )}
 
-        <div className="absolute right-0 top-1/2 h-[72px] w-[25%] -translate-y-1/2 scale-x-[-1]">
+        <div className="absolute right-0 top-1/2 h-[85%] w-[25%] -translate-y-1/2 scale-x-[-1]">
           <CircuitMobile onLoaded={() => setLinesLoaded(true)} />
         </div>
       </header>
 
-      {cardsStarted && (
-        <div className="flex w-full min-h-0 flex-1 flex-col gap-3 overflow-y-auto px-3 pb-5 pt-1">
-          {GALLERY_CATEGORIES.map((category, index) => (
-            <Link
-              key={category.href}
-              href={category.href}
-              className="ia-gen-card-enter group flex min-h-[180px] w-full flex-1 flex-col overflow-hidden border border-[#6d512e]/50 bg-[#101010] p-2 transition-colors duration-300 active:border-[#b98b46]"
-              style={{ animationDelay: `${index * 350}ms` }}
-            >
-              <h3 className="mb-2 flex shrink-0 items-center justify-center text-center text-[10px] font-medium tracking-[0.08em] text-[#d9c29e]">
-                {category.title}
-              </h3>
+      <div className="flex min-h-0 w-full flex-1 flex-col overflow-hidden">
+        {cardsStarted && (
+          <div className="flex min-h-0 w-full flex-1 flex-col gap-[clamp(8px,1.5dvh,14px)] overflow-y-auto px-[clamp(8px,3vw,16px)] pb-[clamp(10px,2dvh,18px)] pt-1">
+            {GALLERY_CATEGORIES.map((category, index) => (
+              <Link
+                key={category.href}
+                href={category.href}
+                className="ia-gen-card-enter group flex min-h-[clamp(100px,18dvh,180px)] w-full flex-1 flex-col overflow-hidden border border-[#6d512e]/50 bg-[#101010] p-[clamp(6px,2vw,10px)] transition-colors duration-300 active:border-[#b98b46]"
+                style={{ animationDelay: `${index * 350}ms` }}
+              >
+                <h3 className="mb-[clamp(4px,1.5vw,8px)] flex shrink-0 items-center justify-center text-center text-[clamp(9px,2.5vw,12px)] font-medium tracking-[0.08em] text-[#d9c29e]">
+                  {category.title}
+                </h3>
 
-              <div className="relative min-h-0 w-full flex-1 overflow-hidden bg-[#080808]">
-                <img
-                  src={layerImages[index][0]}
-                  alt={category.title}
-                  draggable="false"
-                  className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-in-out will-change-[opacity] ${
-                    (activeLayer === 0) !== transitioning
-                      ? "opacity-100"
-                      : "opacity-0"
-                  }`}
-                />
+                <div className="relative min-h-0 w-full flex-1 overflow-hidden bg-[#080808]">
+                  <img
+                    src={layerImages[index][0]}
+                    alt={category.title}
+                    draggable="false"
+                    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-in-out will-change-[opacity] ${
+                      (activeLayer === 0) !== transitioning
+                        ? "opacity-100"
+                        : "opacity-0"
+                    }`}
+                  />
 
-                <img
-                  src={layerImages[index][1]}
-                  alt={category.title}
-                  draggable="false"
-                  className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-in-out will-change-[opacity] ${
-                    (activeLayer === 1) !== transitioning
-                      ? "opacity-100"
-                      : "opacity-0"
-                  }`}
-                />
+                  <img
+                    src={layerImages[index][1]}
+                    alt={category.title}
+                    draggable="false"
+                    className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-in-out will-change-[opacity] ${
+                      (activeLayer === 1) !== transitioning
+                        ? "opacity-100"
+                        : "opacity-0"
+                    }`}
+                  />
 
-                <div className="pointer-events-none absolute inset-0 border border-white/[0.04]" />
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
+                  <div className="pointer-events-none absolute inset-0 border border-white/[0.04]" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }
