@@ -270,7 +270,6 @@ export function ProblemRDesktop() {
   );
 }
 
-console.log(1);
 
 export function ProblemRMobile() {
   const [linesLoaded, setLinesLoaded] = useState(false);
@@ -281,6 +280,33 @@ export function ProblemRMobile() {
     "M35 40 V65 H90 V55 H145",
     "M115 20 V5 H165",
     "M175 60 V75 H210",
+  ];
+
+  const steps = [
+    {
+      number: "01",
+      title: "Observar",
+      description:
+        "Entender el problema y detectar qué puede estar fallando.",
+    },
+    {
+      number: "02",
+      title: "Investigar",
+      description:
+        "Buscar información y encontrar el posible origen.",
+    },
+    {
+      number: "03",
+      title: "Probar",
+      description:
+        "Explorar alternativas, aprender y ajustar el camino.",
+    },
+    {
+      number: "04",
+      title: "Reconocer",
+      description:
+        "Aceptar mis límites y ser honesto cuando algo me supera.",
+    },
   ];
 
   return (
@@ -421,59 +447,36 @@ export function ProblemRMobile() {
 
       {/* CONTENT */}
       {titleLoaded && (
-        <div className="banner-data min-h-0 flex-1 overflow-y-auto">
-          <div className="flex min-h-full flex-col px-4 pb-4 pt-5">
-            <div className="mb-4 flex shrink-0 items-center justify-between">
-              <h3 className="text-[clamp(0.9375rem,4vw,0.9375rem)] font-semibold tracking-wide text-[#e9dfd1]">
+        <div className="banner-data flex min-h-0 flex-1 flex-col overflow-y-auto">
+          <div className="flex min-h-0 flex-1 flex-col gap-[clamp(0.35rem,1.5dvh,0.8rem)] px-4 py-[clamp(0.4rem,1.8dvh,1rem)]">
+            {/* TITLE */}
+            <div className="flex shrink-0 items-center justify-between">
+              <h3 className="text-[clamp(0.8rem,3.8vw,0.95rem)] font-semibold tracking-wide text-[#e9dfd1]">
                 MI PROCEDIMIENTO
               </h3>
 
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border border-[#624629] bg-[#21170f] text-sm text-[#d6a45c]">
+              <div className="flex h-[clamp(1.7rem,5dvh,2rem)] w-[clamp(1.7rem,5dvh,2rem)] items-center justify-center rounded-full border border-[#624629] bg-[#21170f] text-[clamp(0.8rem,3.5vw,0.95rem)] text-[#d6a45c]">
                 ⌘
               </div>
             </div>
 
-            <div className="flex shrink-0 flex-col gap-2">
-              {[
-                {
-                  number: "01",
-                  title: "Observar",
-                  description:
-                    "Entender el problema y detectar qué puede estar fallando.",
-                },
-                {
-                  number: "02",
-                  title: "Investigar",
-                  description:
-                    "Buscar información y encontrar el posible origen.",
-                },
-                {
-                  number: "03",
-                  title: "Probar",
-                  description:
-                    "Explorar alternativas, aprender y ajustar el camino.",
-                },
-                {
-                  number: "04",
-                  title: "Reconocer",
-                  description:
-                    "Aceptar mis límites y ser honesto cuando algo me supera.",
-                },
-              ].map((step) => (
+            {/* STEPS */}
+            <div className="flex min-h-0 flex-1 flex-col gap-[clamp(0.3rem,1.1dvh,0.6rem)]">
+              {steps.map((step) => (
                 <div
                   key={step.number}
-                  className="flex w-fit max-w-full shrink-0 gap-3 rounded-xl border border-[#382a1d] bg-[#15110d]/80 p-3"
+                  className="flex min-h-0 flex-1 items-center gap-[clamp(0.5rem,2.5vw,0.75rem)] rounded-xl border border-[#382a1d] bg-[#15110d]/80 px-[clamp(0.55rem,2.5vw,0.8rem)] py-[clamp(0.35rem,1dvh,0.65rem)]"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#77532e] bg-[#21170f] text-[clamp(0.875rem,3.7vw,0.875rem)] font-semibold text-[#d6a45c]">
+                  <span className="flex h-[clamp(2rem,6dvh,2.5rem)] w-[clamp(2rem,6dvh,2.5rem)] shrink-0 items-center justify-center rounded-full border border-[#77532e] bg-[#21170f] text-[clamp(0.75rem,3.2vw,0.875rem)] font-semibold text-[#d6a45c]">
                     {step.number}
                   </span>
 
-                  <div className="min-w-0">
-                    <h4 className="mb-1 text-[clamp(1.125rem,4.8vw,1.125rem)] font-semibold tracking-wide text-[#e5bd78]">
+                  <div className="flex min-w-0 flex-col justify-center">
+                    <h4 className="mb-[clamp(0.1rem,0.4dvh,0.25rem)] text-[clamp(0.9rem,4vw,1.125rem)] font-semibold tracking-wide text-[#e5bd78]">
                       {step.title}
                     </h4>
 
-                    <p className="text-[clamp(1rem,4.27vw,1rem)] leading-[1.5] text-[#aaa096]">
+                    <p className="text-[clamp(0.72rem,3.2vw,0.875rem)] leading-[1.4] text-[#aaa096]">
                       {step.description}
                     </p>
                   </div>
@@ -481,12 +484,13 @@ export function ProblemRMobile() {
               ))}
             </div>
 
-            <div className="mt-9 flex shrink-0 items-center gap-3 border-l-2 border-[#a66e32] py-2 pl-4">
-              <span className="shrink-0 text-[clamp(1.25rem,5.3vw,1.5rem)] text-[#d6a45c]">
+            {/* FINAL PHRASE */}
+            <div className="flex shrink-0 items-center gap-3 border-l-2 border-[#a66e32] py-[clamp(0.3rem,1dvh,0.6rem)] pl-3">
+              <span className="shrink-0 text-[clamp(1.1rem,5dvh,1.5rem)] text-[#d6a45c]">
                 ✦
               </span>
 
-              <p className="min-w-0 text-[clamp(0.875rem,3.73vw,0.875rem)] italic leading-relaxed text-[#d0c2ad]">
+              <p className="min-w-0 text-[clamp(0.72rem,3.2vw,0.875rem)] italic leading-relaxed text-[#d0c2ad]">
                 A veces la solución no aparece enseguida. Pero eso no significa
                 que deje de buscarla.
               </p>
