@@ -269,6 +269,9 @@ export function ProblemRDesktop() {
     </section>
   );
 }
+
+console.log(1);
+
 export function ProblemRMobile() {
   const [linesLoaded, setLinesLoaded] = useState(false);
   const [titleLoaded, setTitleLoaded] = useState(false);
