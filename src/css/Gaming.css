@@ -1,0 +1,561 @@
+
+@keyframes gamingCircuitDraw {
+  from {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+
+  to {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes gamingCircuitFlow {
+  from {
+    stroke-dashoffset: 100;
+  }
+
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@keyframes gamingNodeAppear {
+  to {
+    opacity: 0.8;
+  }
+}
+
+@keyframes gamingTitleEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes gamingContentEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gamingOverlayAppear {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+
+  to {
+    opacity: 1;
+    backdrop-filter: blur(2px);
+  }
+}
+
+@keyframes gamingTvAppear {
+  from {
+    opacity: 0;
+    transform: translateY(45px) scale(0.88);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes gamingScreenOn {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.015);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scaleY(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes gamingArcadeAppear {
+  from {
+    opacity: 0;
+    transform: translateY(35px) scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.gaming-circuit-draw path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: gamingCircuitDraw 1.15s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.gaming-energy-pulse path {
+  stroke-dasharray: 12 88;
+  stroke-dashoffset: 100;
+  animation: gamingCircuitFlow 3s linear infinite;
+}
+
+.gaming-energy-pulse path:nth-child(2n) {
+  animation-duration: 3.2s;
+}
+
+.gaming-energy-pulse path:nth-child(3n) {
+  animation-duration: 3.6s;
+}
+
+.gaming-circuit-node {
+  fill: #d6a45c;
+  opacity: 0;
+  animation: gamingNodeAppear 0.5s ease-out 1.5s forwards;
+}
+
+.gaming-title-enter {
+  opacity: 0;
+  animation: gamingTitleEnter 750ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.gaming-content-enter {
+  opacity: 0;
+  animation: gamingContentEnter 850ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.gaming-arrow {
+  display: flex;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #624629;
+  border-radius: 999px;
+  color: #d6a45c;
+  background: #21170f;
+  transition:
+    color 250ms ease,
+    border-color 250ms ease,
+    background 250ms ease,
+    opacity 250ms ease,
+    transform 250ms ease;
+}
+
+.gaming-arrow svg {
+  width: 21px;
+  height: 21px;
+}
+
+.gaming-arrow:not(:disabled):hover {
+  color: #ffe0a0;
+  border-color: #b98b46;
+  background: #302012;
+  transform: scale(1.06);
+}
+
+.gaming-arrow:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.gaming-desktop-game {
+  display: flex;
+  min-width: 0;
+  min-height: 190px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border: 1px solid #382a1d;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #1b140e, #0c0a08);
+  transition:
+    border-color 250ms ease,
+    background 250ms ease,
+    transform 250ms ease;
+}
+
+.gaming-desktop-game:hover {
+  transform: translateY(-5px);
+  border-color: #a66e32;
+  background: linear-gradient(145deg, #261a10, #100c08);
+}
+
+.gaming-desktop-game-logo {
+  display: flex;
+  width: min(100%, 110px);
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #594127;
+  border-radius: 12px;
+  background: #100c08;
+  padding: 14px;
+  transition:
+    border-color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.gaming-desktop-game:hover .gaming-desktop-game-logo {
+  border-color: #b98b46;
+  box-shadow: 0 0 22px rgb(185 139 70 / 12%);
+}
+
+.gaming-mobile-game {
+  display: flex;
+  width: min(100%, 250px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #382a1d;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #1b140e, #0c0a08);
+  padding: 25px 18px;
+  transition:
+    border-color 250ms ease,
+    transform 250ms ease;
+}
+
+.gaming-mobile-game:active {
+  transform: scale(0.97);
+  border-color: #b98b46;
+}
+
+.gaming-mobile-game-logo {
+  display: flex;
+  width: 110px;
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #594127;
+  border-radius: 18px;
+  background: #100c08;
+  padding: 16px;
+}
+
+.gaming-overlay {
+  animation: gamingOverlayAppear 350ms ease-out both;
+}
+
+.gaming-tv-enter {
+  animation: gamingTvAppear 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.gaming-tv-frame {
+  overflow: hidden;
+  border: 9px solid #30251a;
+  border-radius: 28px;
+  background: linear-gradient(145deg, #57432d, #21170f 65%);
+  padding: 15px;
+  box-shadow:
+    0 35px 100px rgb(0 0 0 / 70%),
+    inset 0 1px 1px rgb(255 255 255 / 12%),
+    0 0 0 2px #120e09;
+}
+
+.gaming-tv-top {
+  display: flex;
+  height: 28px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 10px;
+}
+
+.gaming-tv-brand {
+  color: #c6a477;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+}
+
+.gaming-tv-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #b99a6c;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+}
+
+.gaming-tv-status span,
+.gaming-arcade-light {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d6a45c;
+  box-shadow: 0 0 8px #d6a45c;
+}
+
+.gaming-tv-screen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 7px solid #080706;
+  border-radius: 12px;
+  background: #000;
+  box-shadow:
+    inset 0 0 25px rgb(0 0 0 / 90%),
+    0 0 0 1px #594127;
+}
+
+.gaming-tv-screen iframe {
+  position: relative;
+  z-index: 1;
+  display: block;
+  background: #000;
+  animation: gamingScreenOn 550ms ease-out both;
+}
+
+.gaming-screen-scanlines {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  inset: 0;
+  opacity: 0.1;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgb(0 0 0 / 65%) 4px
+  );
+}
+
+.gaming-tv-controls {
+  display: flex;
+  height: 43px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 8px 0;
+}
+
+.gaming-tv-speaker {
+  width: 75px;
+  height: 15px;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #120e09 0,
+    #120e09 2px,
+    #493723 3px,
+    #493723 4px
+  );
+}
+
+.gaming-tv-control-group {
+  display: flex;
+  gap: 7px;
+}
+
+.gaming-tv-control-group span {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #8a6941;
+  border-radius: 50%;
+  background: #21170f;
+}
+
+.gaming-tv-power {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #8a6941;
+  border-radius: 50%;
+}
+
+.gaming-tv-power span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d6a45c;
+  box-shadow: 0 0 8px #d6a45c;
+}
+
+.gaming-exit-button {
+  display: flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #8a6035;
+  border-radius: 6px;
+  background: #21170f;
+  padding: 0 15px;
+  color: #e5bd78;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.gaming-exit-button:hover {
+  border-color: #e5bd78;
+  background: #382515;
+  color: #ffe0a0;
+}
+
+.gaming-arcade-enter {
+  animation: gamingArcadeAppear 550ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.gaming-arcade-frame {
+  overflow: hidden;
+  border: 7px solid #30251a;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #57432d, #21170f 65%);
+  padding: 12px;
+  box-shadow:
+    0 30px 80px rgb(0 0 0 / 75%),
+    inset 0 1px 1px rgb(255 255 255 / 12%),
+    0 0 0 2px #120e09;
+}
+
+.gaming-arcade-header {
+  display: flex;
+  height: 35px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 10px;
+}
+
+.gaming-arcade-brand {
+  color: #e5bd78;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+}
+
+.gaming-arcade-screen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  max-height: min(56dvh, 560px);
+  overflow: hidden;
+  border: 7px solid #080706;
+  border-radius: 12px;
+  background: #000;
+  box-shadow:
+    inset 0 0 25px rgb(0 0 0 / 90%),
+    0 0 0 1px #594127;
+}
+
+.gaming-arcade-screen iframe {
+  position: relative;
+  z-index: 1;
+  display: block;
+  background: #000;
+  animation: gamingScreenOn 550ms ease-out both;
+}
+
+.gaming-arcade-controls {
+  display: flex;
+  height: 65px;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 12px;
+}
+
+.gaming-joystick {
+  display: flex;
+  width: 37px;
+  height: 37px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #8a6941;
+  border-radius: 50%;
+  background: #21170f;
+}
+
+.gaming-joystick span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #d6a45c;
+  box-shadow: 0 0 8px rgb(214 164 92 / 35%);
+}
+
+.gaming-arcade-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.gaming-arcade-buttons span {
+  width: 17px;
+  height: 17px;
+  border: 1px solid #8a6941;
+  border-radius: 50%;
+  background: #8d3925;
+  box-shadow: inset 0 -3px 0 rgb(0 0 0 / 35%);
+}
+
+.gaming-arcade-buttons span:nth-child(2) {
+  background: #b98b46;
+}
+
+.gaming-arcade-buttons span:nth-child(3) {
+  background: #536b3c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gaming-circuit-draw path,
+  .gaming-energy-pulse path,
+  .gaming-circuit-node,
+  .gaming-title-enter,
+  .gaming-content-enter,
+  .gaming-overlay,
+  .gaming-tv-enter,
+  .gaming-tv-screen iframe,
+  .gaming-arcade-enter,
+  .gaming-arcade-screen iframe {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    filter: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 639px) {
+  .gaming-arrow {
+    width: 38px;
+    height: 38px;
+  }
+
+  .gaming-arcade-frame {
+    padding: 9px;
+  }
+
+  .gaming-exit-button {
+    min-height: 35px;
+    padding: 0 12px;
+    font-size: 9px;
+  }
+}
