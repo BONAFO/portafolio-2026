@@ -578,33 +578,38 @@ export function GamingMobile() {
       {/* MOBILE ARCADE OVERLAY */}
       {selectedGame && (
         <div className="gaming-overlay fixed inset-0 z-[100] flex h-[100dvh] flex-col overflow-hidden bg-black/40 px-2 py-2 backdrop-blur-[2px]">
-          <div
-            className="gaming-arcade-enter flex min-h-0 w-full flex-1 flex-col"
-            style={{ minHeight: 0 }}
-          >
+          <div className="gaming-arcade-enter flex min-h-0 w-full flex-1 flex-col">
+            {/* ARCADE FRAME */}
             <div
-              className="gaming-arcade-frame flex min-h-0 w-full flex-1 flex-col"
+              className="gaming-arcade-frame flex min-h-0 w-full flex-1 flex-col overflow-hidden"
               style={{
                 display: "flex",
                 flexDirection: "column",
                 flex: "1 1 0%",
                 minHeight: 0,
-                width: "100%",
               }}
             >
-              <div className="gaming-arcade-header shrink-0">
+              {/* TOP BORDER */}
+              <div
+                className="gaming-arcade-header flex shrink-0 items-center justify-between"
+                style={{
+                  height: "40px",
+                  minHeight: "40px",
+                  flexShrink: 0,
+                }}
+              >
                 <span className="gaming-arcade-brand">ARCADE</span>
                 <span className="gaming-arcade-light" />
               </div>
 
+              {/* GAME SCREEN */}
               <div
-                className="gaming-arcade-screen"
+                className="gaming-arcade-screen relative min-h-0 w-full flex-1 overflow-hidden"
                 style={{
-                  display: "flex",
                   flex: "1 1 0%",
                   minHeight: 0,
                   height: 0,
-                  width: "100%",
+                  aspectRatio: "auto",
                 }}
               >
                 <iframe
@@ -614,14 +619,22 @@ export function GamingMobile() {
                   tabIndex={0}
                   allow="fullscreen; autoplay; gamepad"
                   allowFullScreen
-                  className="h-full w-full border-0"
+                  className="absolute inset-0 h-full w-full border-0"
                   onLoad={() => iframeRef.current?.focus()}
                 />
 
                 <div className="gaming-screen-scanlines" />
               </div>
 
-              <div className="gaming-arcade-bottom-border shrink-0" />
+              {/* BOTTOM BORDER - SAME HEIGHT AS TOP */}
+              <div
+                className="shrink-0 border-t border-[#624629] bg-[#17110c]"
+                style={{
+                  height: "40px",
+                  minHeight: "40px",
+                  flexShrink: 0,
+                }}
+              />
             </div>
 
             {/* BOTTOM BAR */}
