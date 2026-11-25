@@ -461,6 +461,7 @@ export function GamingMobile() {
               <p className="text-[9px] font-semibold tracking-[0.3em] text-[#a66e32]">
                 GAME LIBRARY
               </p>
+
               <h3 className="mt-1 text-base font-semibold tracking-wide text-[#e9dfd1]">
                 MIS JUEGOS
               </h3>
@@ -576,26 +577,36 @@ export function GamingMobile() {
 
       {/* MOBILE ARCADE OVERLAY */}
       {selectedGame && (
-        <div className="gaming-overlay fixed inset-0 z-[100] flex items-center justify-center bg-black/40 px-3 py-5 backdrop-blur-[2px]">
-          <div className="gaming-arcade-enter flex max-h-full w-full max-w-[520px] flex-col">
-            <div className="mb-3 flex justify-end">
-              <button
-                type="button"
-                onClick={() => setSelectedGame(null)}
-                className="gaming-exit-button"
-              >
-                <span className="text-base">×</span>
-                SALIR DEL JUEGO
-              </button>
-            </div>
-
-            <div className="gaming-arcade-frame">
-              <div className="gaming-arcade-header">
+        <div className="gaming-overlay fixed inset-0 z-[100] flex h-[100dvh] flex-col overflow-hidden bg-black/40 px-2 py-2 backdrop-blur-[2px]">
+          <div
+            className="gaming-arcade-enter flex min-h-0 w-full flex-1 flex-col"
+            style={{ minHeight: 0 }}
+          >
+            <div
+              className="gaming-arcade-frame flex min-h-0 w-full flex-1 flex-col"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                flex: "1 1 0%",
+                minHeight: 0,
+                width: "100%",
+              }}
+            >
+              <div className="gaming-arcade-header shrink-0">
                 <span className="gaming-arcade-brand">ARCADE</span>
                 <span className="gaming-arcade-light" />
               </div>
 
-              <div className="gaming-arcade-screen">
+              <div
+                className="gaming-arcade-screen"
+                style={{
+                  display: "flex",
+                  flex: "1 1 0%",
+                  minHeight: 0,
+                  height: 0,
+                  width: "100%",
+                }}
+              >
                 <iframe
                   ref={iframeRef}
                   src={selectedGame.src}
@@ -606,10 +617,11 @@ export function GamingMobile() {
                   className="h-full w-full border-0"
                   onLoad={() => iframeRef.current?.focus()}
                 />
+
                 <div className="gaming-screen-scanlines" />
               </div>
 
-              <div className="gaming-arcade-controls">
+              <div className="gaming-arcade-controls shrink-0">
                 <div className="gaming-joystick">
                   <span />
                 </div>
@@ -622,9 +634,21 @@ export function GamingMobile() {
               </div>
             </div>
 
-            <p className="mt-3 text-center text-[10px] tracking-[0.25em] text-[#b98b46]">
-              {selectedGame.title}
-            </p>
+            {/* BOTTOM BAR */}
+            <div className="mt-2 flex w-full shrink-0 items-center justify-between gap-3 px-1">
+              <p className="min-w-0 truncate text-[10px] font-semibold tracking-[0.2em] text-[#b98b46]">
+                {selectedGame.title}
+              </p>
+
+              <button
+                type="button"
+                onClick={() => setSelectedGame(null)}
+                className="gaming-exit-button shrink-0"
+              >
+                <span className="text-base">×</span>
+                SALIR DEL JUEGO
+              </button>
+            </div>
           </div>
         </div>
       )}
