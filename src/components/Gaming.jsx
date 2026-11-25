@@ -621,17 +621,7 @@ export function GamingMobile() {
                 <div className="gaming-screen-scanlines" />
               </div>
 
-              <div className="gaming-arcade-controls shrink-0">
-                <div className="gaming-joystick">
-                  <span />
-                </div>
-
-                <div className="gaming-arcade-buttons">
-                  <span />
-                  <span />
-                  <span />
-                </div>
-              </div>
+              <div className="gaming-arcade-bottom-border shrink-0" />
             </div>
 
             {/* BOTTOM BAR */}
