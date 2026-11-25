@@ -1,4 +1,3 @@
-
 @keyframes gamingCircuitDraw {
   from {
     stroke-dasharray: 100;
@@ -108,6 +107,8 @@
   }
 }
 
+/* CIRCUITS */
+
 .gaming-circuit-draw path {
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
@@ -134,6 +135,8 @@
   animation: gamingNodeAppear 0.5s ease-out 1.5s forwards;
 }
 
+/* ENTRANCE ANIMATIONS */
+
 .gaming-title-enter {
   opacity: 0;
   animation: gamingTitleEnter 750ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -143,6 +146,20 @@
   opacity: 0;
   animation: gamingContentEnter 850ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
+
+.gaming-overlay {
+  animation: gamingOverlayAppear 350ms ease-out both;
+}
+
+.gaming-tv-enter {
+  animation: gamingTvAppear 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.gaming-arcade-enter {
+  animation: gamingArcadeAppear 550ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ARROWS */
 
 .gaming-arrow {
   display: flex;
@@ -179,6 +196,8 @@
   opacity: 0.25;
   cursor: not-allowed;
 }
+
+/* DESKTOP GAME CARDS */
 
 .gaming-desktop-game {
   display: flex;
@@ -224,6 +243,8 @@
   box-shadow: 0 0 22px rgb(185 139 70 / 12%);
 }
 
+/* MOBILE GAME CARD */
+
 .gaming-mobile-game {
   display: flex;
   width: min(100%, 250px);
@@ -257,13 +278,7 @@
   padding: 16px;
 }
 
-.gaming-overlay {
-  animation: gamingOverlayAppear 350ms ease-out both;
-}
-
-.gaming-tv-enter {
-  animation: gamingTvAppear 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
+/* DESKTOP TV */
 
 .gaming-tv-frame {
   overflow: hidden;
@@ -331,6 +346,8 @@
   animation: gamingScreenOn 550ms ease-out both;
 }
 
+/* SHARED SCANLINES */
+
 .gaming-screen-scanlines {
   position: absolute;
   z-index: 2;
@@ -344,6 +361,8 @@
     rgb(0 0 0 / 65%) 4px
   );
 }
+
+/* DESKTOP TV CONTROLS */
 
 .gaming-tv-controls {
   display: flex;
@@ -397,6 +416,8 @@
   box-shadow: 0 0 8px #d6a45c;
 }
 
+/* EXIT BUTTON */
+
 .gaming-exit-button {
   display: flex;
   min-height: 38px;
@@ -422,28 +443,35 @@
   color: #ffe0a0;
 }
 
-.gaming-arcade-enter {
-  animation: gamingArcadeAppear 550ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
+/* MOBILE ARCADE FRAME */
 
 .gaming-arcade-frame {
+  display: flex;
+  flex: 1 1 0%;
+  min-height: 0;
+  width: 100%;
+  flex-direction: column;
   overflow: hidden;
-  border: 7px solid #30251a;
-  border-radius: 24px;
+  border: 5px solid #30251a;
+  border-radius: 18px;
   background: linear-gradient(145deg, #57432d, #21170f 65%);
-  padding: 12px;
+  padding: 4px;
   box-shadow:
     0 30px 80px rgb(0 0 0 / 75%),
     inset 0 1px 1px rgb(255 255 255 / 12%),
     0 0 0 2px #120e09;
 }
 
+/* TOP ARCADE BEZEL */
+
 .gaming-arcade-header {
   display: flex;
-  height: 35px;
+  flex: 0 0 24px;
+  height: 24px;
+  min-height: 24px;
   align-items: center;
   justify-content: space-between;
-  padding: 0 8px 10px;
+  padding: 0 6px;
 }
 
 .gaming-arcade-brand {
@@ -453,14 +481,18 @@
   letter-spacing: 0.35em;
 }
 
+/* GAME SCREEN - USE ALL REMAINING SPACE */
+
 .gaming-arcade-screen {
   position: relative;
+  display: block;
+  flex: 1 1 0%;
+  min-height: 0;
+  height: 0;
   width: 100%;
-  aspect-ratio: 3 / 4;
-  max-height: min(56dvh, 560px);
   overflow: hidden;
-  border: 7px solid #080706;
-  border-radius: 12px;
+  border: 4px solid #080706;
+  border-radius: 8px;
   background: #000;
   box-shadow:
     inset 0 0 25px rgb(0 0 0 / 90%),
@@ -471,58 +503,25 @@
   position: relative;
   z-index: 1;
   display: block;
+  width: 100%;
+  height: 100%;
   background: #000;
   animation: gamingScreenOn 550ms ease-out both;
 }
 
-.gaming-arcade-controls {
-  display: flex;
-  height: 65px;
-  align-items: center;
-  justify-content: space-around;
-  padding-top: 12px;
+/* BOTTOM ARCADE BEZEL - SAME SIZE AS TOP */
+
+.gaming-arcade-bottom-border {
+  display: block;
+  flex: 0 0 24px;
+  width: 100%;
+  height: 24px;
+  min-height: 24px;
+  border-top: 1px solid #624629;
+  background: #17110c;
 }
 
-.gaming-joystick {
-  display: flex;
-  width: 37px;
-  height: 37px;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #8a6941;
-  border-radius: 50%;
-  background: #21170f;
-}
-
-.gaming-joystick span {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #d6a45c;
-  box-shadow: 0 0 8px rgb(214 164 92 / 35%);
-}
-
-.gaming-arcade-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.gaming-arcade-buttons span {
-  width: 17px;
-  height: 17px;
-  border: 1px solid #8a6941;
-  border-radius: 50%;
-  background: #8d3925;
-  box-shadow: inset 0 -3px 0 rgb(0 0 0 / 35%);
-}
-
-.gaming-arcade-buttons span:nth-child(2) {
-  background: #b98b46;
-}
-
-.gaming-arcade-buttons span:nth-child(3) {
-  background: #536b3c;
-}
+/* ACCESSIBILITY */
 
 @media (prefers-reduced-motion: reduce) {
   .gaming-circuit-draw path,
@@ -543,14 +542,12 @@
   }
 }
 
+/* RESPONSIVE */
+
 @media (max-width: 639px) {
   .gaming-arrow {
     width: 38px;
     height: 38px;
-  }
-
-  .gaming-arcade-frame {
-    padding: 9px;
   }
 
   .gaming-exit-button {
@@ -558,11 +555,4 @@
     padding: 0 12px;
     font-size: 9px;
   }
-}
-.gaming-arcade-bottom-border {
-  width: 100%;
-  height: 5px;
-  flex-shrink: 0;
-  border-top: 1px solid #624629;
-  background: #17110c;
 }
